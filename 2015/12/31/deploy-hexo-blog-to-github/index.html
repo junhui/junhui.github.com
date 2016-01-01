@@ -4,9 +4,9 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
-<title>Apache Spark Overview</title>
+<title>Deploy hexo blog to github</title>
 <meta name="author" content="Junhuih">
-<meta name="keywords" content="Junhuih, technical, solution, notes, web"><meta name="description " content="spark">
+<meta name="keywords" content="Junhuih, technical, solution, notes, web"><meta name="description " content="my daily technical solution and learning notes.">
 <link rel="icon" href="/favicon.png">
 <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
@@ -51,99 +51,16 @@
   <div id="post">
     <div id="pjax">
       <article id="post__content">
-  <h1 id="post__title" data-identifier="2015-06-11">Apache Spark Overview</h1>
-<h2 id="Spark_Stack"><a href="#Spark_Stack" class="headerlink" title="Spark Stack"></a>Spark Stack</h2><p>Spark was created to complement, not replace, Hadoop</p>
-<ul>
-<li>Uses HDFS</li>
-<li>Runs on YARN</li>
-<li>Integrate well with Hadoop ecosystem (flume/sqoop/hbase, in future and kafka)</li>
-</ul>
-<p><img src="/images/spark-stack.jpg" alt="spark stack"></p>
-<p>Hadoop introduced two key concepts:</p>
-<ul>
-<li>Distribute data</li>
-<li>Run computation where the data is</li>
-</ul>
-<p>Spark take it to the next level and <strong>make data distributed in memory</strong>.</p>
-<h3 id="Spark_Framework"><a href="#Spark_Framework" class="headerlink" title="Spark Framework"></a>Spark Framework</h3><p><img src="/images/spark-framework.jpg" alt=""></p>
-<ul>
-<li>Cluster computing<ul>
-<li>Application processes are distributed across a cluster of worker nodes</li>
-<li>Managed by a single “master”</li>
-<li>Scalable and fault tolerant</li>
-</ul>
-</li>
-<li>Distribute storage</li>
-<li>Data in memory</li>
-</ul>
-<h3 id="Common_Use_Case"><a href="#Common_Use_Case" class="headerlink" title="Common Use Case"></a>Common Use Case</h3><ul>
-<li>ETL</li>
-<li>Text mining</li>
-<li>Index building</li>
-<li>Graph creation and analysis</li>
-<li>Pattern recognition</li>
-<li>Collaborativce filtering</li>
-<li>Prediction models</li>
-<li>Sentiment analysis</li>
-<li>Risk assessment</li>
-</ul>
-<h2 id="Spark_VS_Hadoop_MapReduce"><a href="#Spark_VS_Hadoop_MapReduce" class="headerlink" title="Spark VS Hadoop MapReduce"></a>Spark VS Hadoop MapReduce</h2><ul>
-<li>Hadoop MapReduce <ul>
-<li>Widely used, huge investment already made </li>
-<li>Supports and supported by many complementary tools </li>
-<li>Mature, stable, wellWtested technology </li>
-<li>Skilled developers available </li>
-</ul>
-</li>
-<li>Spark <ul>
-<li>Flexible </li>
-<li>Elegant  </li>
-<li>Fast </li>
-<li>Changing rapidly </li>
-</ul>
-</li>
-</ul>
-<h2 id="Hadoop_Ecosystem"><a href="#Hadoop_Ecosystem" class="headerlink" title="Hadoop Ecosystem"></a>Hadoop Ecosystem</h2><h3 id="Data_Storage_3A_HBase__u2013_The_HDFS_Database"><a href="#Data_Storage_3A_HBase__u2013_The_HDFS_Database" class="headerlink" title="Data Storage: HBase – The HDFS Database"></a>Data Storage: HBase – The HDFS Database</h3><ul>
-<li>HBase: big benifit is you <strong>can modify your data</strong></li>
-<li>HBase: database layered on top of HDFS <ul>
-<li>Provides interactive access to data </li>
-</ul>
-</li>
-<li>Stores massive amounts of data <ul>
-<li>Petabytes+ </li>
-</ul>
-</li>
-<li>High throughput <ul>
-<li>Thousands of writes per second (per node) </li>
-</ul>
-</li>
-<li>Handles sparse data well <ul>
-<li>No wasted space for a row with empty columns </li>
-</ul>
-</li>
-<li>Limited access model <ul>
-<li>Optimized for lookup of a row by key rather than full queries </li>
-<li>No transactions: single row operations only </li>
-</ul>
-</li>
-</ul>
-<h3 id="Data_Analysis_3A_Hive"><a href="#Data_Analysis_3A_Hive" class="headerlink" title="Data Analysis: Hive"></a>Data Analysis: Hive</h3><p>Built on Hadoop MapReduce, an SQL-like access to Hadoop data tool.</p>
-<h3 id="Data_Analysis_3A_Impala"><a href="#Data_Analysis_3A_Impala" class="headerlink" title="Data Analysis: Impala"></a>Data Analysis: Impala</h3><p>Open source project, developed by Cloudera, high-speed SQL query engine</p>
-<ul>
-<li>High-performance SQL engine for vast amounts of data <ul>
-<li>Similar query language to HiveQL  </li>
-<li>10 to 50+ Gmes faster than Hive or MapReduce </li>
-</ul>
-</li>
-<li>Impala runs on Hadoop clusters <ul>
-<li>Data stored in HDFS </li>
-<li>Dedicated SQL engine; does not depend on Spark, MapReduce, or Hive </li>
-</ul>
-</li>
-</ul>
-<h3 id="Data_Integration_3A_Flume"><a href="#Data_Integration_3A_Flume" class="headerlink" title="Data Integration: Flume"></a>Data Integration: Flume</h3><p>Flume: A service to move large amounts of data in real-time</p>
-<p>Spark Streaming is integrated with Flume</p>
-<h3 id="Data_Integration_3A_Sqoop"><a href="#Data_Integration_3A_Sqoop" class="headerlink" title="Data Integration: Sqoop"></a>Data Integration: Sqoop</h3><p>Check to see the basic usage for <a href="/2015/02/21/sqoop/">Sqoop</a></p>
+  <h1 id="post__title" data-identifier="2015-12-31">Deploy hexo blog to github</h1>
+<blockquote>
+<p>hexo配置部署到<code>github</code>时，对应的<code>_config.xml</code>配置如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:&#10;   type: git&#10;   repo: git@github.com:junhuih/junhuih.github.io.git&#10;   branch: gh-pages</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="u95EE_u9898"><a href="#u95EE_u9898" class="headerlink" title="问题"></a>问题</h2><p>在安装<code>hexo</code>并deploy到<code>github</code>时，默认安装会有下面错误：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">blog$ hexo d&#10;ERROR Deployer not found: git</span><br></pre></td></tr></table></figure>
+<h2 id="u89E3_u51B3_u65B9_u6CD5"><a href="#u89E3_u51B3_u65B9_u6CD5" class="headerlink" title="解决方法"></a>解决方法</h2><p>默认的<code>hexo</code>并没有安装对应<code>git</code>的<code>deployer</code>的，需要在blog根目录下之行下面命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>然后按照正常的步骤发布即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo generate&#10;hexo deploy</span><br></pre></td></tr></table></figure>
 </article><div id="post__share">
     <!-- 打赏入口 -->
     <!-- <a id="icon-heart" class="fontello" href="#"></a> -->

@@ -37,6 +37,7 @@
       <input id="search-input" type="text" placeholder="戳一下不会怀孕" />
     </form>
     <nav id="pl__container">
+        <a class="web pl__all" href="/2015/12/31/deploy-hexo-blog-to-github/" title="Deploy hexo blog to github"><span class="pl__circle"></span><span class="pl__title">Deploy hexo blog to github</span><span class="pl__date">2015-12-31</span></a>
         <a class="web pl__all" href="/2015/06/16/varnish/" title="Varnish"><span class="pl__circle"></span><span class="pl__title">Varnish</span><span class="pl__date">2015-06-16</span></a>
         <a class="bigdata pl__all" href="/2015/06/12/sqoop/" title="Data Integration: Sqoop"><span class="pl__circle"></span><span class="pl__title">Data Integration: Sqoop</span><span class="pl__date">2015-06-12</span></a>
         <a class="bigdata pl__all" href="/2015/06/11/spark-streaming/" title="Apache Spark Streaming"><span class="pl__circle"></span><span class="pl__title">Apache Spark Streaming</span><span class="pl__date">2015-06-11</span></a>
@@ -50,13 +51,16 @@
   <div id="post">
     <div id="pjax">
       <article id="post__content">
-  <h1 id="post__title" data-identifier="2015-12-31">Good bye 2015</h1>
+  <h1 id="post__title" data-identifier="2015-12-31">Deploy hexo blog to github</h1>
   <blockquote>
-<p>Start to open your mind, try to see what you will be benefited.</p>
+<p>hexo配置部署到<code>github</code>时，对应的<code>_config.xml</code>配置如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:&#10;   type: git&#10;   repo: git@github.com:junhuih/junhuih.github.io.git&#10;   branch: gh-pages</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<p>2015年马上就过去了，已过而立之年，过去太多时间荒废在封闭的环境和心态里。希望在以后的时间里寻求一些变化，多拥抱一些分享的文化。</p>
-<h2 id="u5C55_u671B2016"><a href="#u5C55_u671B2016" class="headerlink" title="展望2016"></a><strong>展望2016</strong></h2><p>希望2016年能够：</p>
-<p>－ 坚持学习、分享<br>－ 偏重一点基础知识<br>－ 坚持、坚持</p>
+<h2 id="u95EE_u9898"><a href="#u95EE_u9898" class="headerlink" title="问题"></a>问题</h2><p>在安装<code>hexo</code>并deploy到<code>github</code>时，默认安装会有下面错误：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">blog$ hexo d&#10;ERROR Deployer not found: git</span><br></pre></td></tr></table></figure>
+<h2 id="u89E3_u51B3_u65B9_u6CD5"><a href="#u89E3_u51B3_u65B9_u6CD5" class="headerlink" title="解决方法"></a>解决方法</h2><p>默认的<code>hexo</code>并没有安装对应<code>git</code>的<code>deployer</code>的，需要在blog根目录下之行下面命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>然后按照正常的步骤发布即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo generate&#10;hexo deploy</span><br></pre></td></tr></table></figure>
 
 </article><div id="post__share">
     <!-- 打赏入口 -->
