@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://blog.junhuih.com/2015/12/31/deploy-hexo-blog-to-github/</loc>
+    <lastmod>2016-01-01T07:53:30.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.junhuih.com/2015/12/31/good-bye-2015/</loc>
+    <lastmod>2016-01-01T07:07:19.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.junhuih.com/2015/06/12/sqoop/</loc>
+    <lastmod>2016-01-01T06:40:45.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.junhuih.com/2015/04/29/linux-command/</loc>
+    <lastmod>2016-01-01T06:35:49.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.junhuih.com/2015/06/11/spark-hdfs/</loc>
+    <lastmod>2016-01-01T06:35:21.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.junhuih.com/2015/06/11/spark-overview/</loc>
+    <lastmod>2016-01-01T06:34:47.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.junhuih.com/2015/06/11/spark-streaming/</loc>
+    <lastmod>2016-01-01T06:34:13.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.junhuih.com/2015/06/16/varnish/</loc>
+    <lastmod>2016-01-01T06:33:02.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.junhuih.com/404.html</loc>
+    <lastmod>2015-12-31T19:45:58.000Z</lastmod>
+  </url>
+  
+</urlset>

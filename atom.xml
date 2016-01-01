@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Junhuih Notes]]></title>
+  <subtitle><![CDATA[Web, Solution]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://blog.junhuih.com/"/>
+  <updated>2016-01-01T07:53:30.000Z</updated>
+  <id>http://blog.junhuih.com/</id>
+  
+  <author>
+    <name><![CDATA[Junhuih]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Deploy hexo blog to github]]></title>
+    <link href="http://blog.junhuih.com/2015/12/31/deploy-hexo-blog-to-github/"/>
+    <id>http://blog.junhuih.com/2015/12/31/deploy-hexo-blog-to-github/</id>
+    <published>2016-01-01T07:44:52.000Z</published>
+    <updated>2016-01-01T07:53:30.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>hexo配置部署到<code>github</code>时，对应的<code>_config.xml</code>配置如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:&#10;   type: git&#10;   repo: git@github.com:junhuih/junhuih.github.io.git&#10;   branch: gh-pages</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="u95EE_u9898"><a href="#u95EE_u9898" class="headerlink" title="问题"></a>问题</h2><p>在安装<code>hexo</code>并deploy到<code>github</code>时，默认安装会有下面错误：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">blog$ hexo d&#10;ERROR Deployer not found: git</span><br></pre></td></tr></table></figure>
+<h2 id="u89E3_u51B3_u65B9_u6CD5"><a href="#u89E3_u51B3_u65B9_u6CD5" class="headerlink" title="解决方法"></a>解决方法</h2><p>默认的<code>hexo</code>并没有安装对应<code>git</code>的<code>deployer</code>的，需要在blog根目录下之行下面命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>然后按照正常的步骤发布即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo generate&#10;hexo deploy</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>hexo配置部署到<code>github</code>时，对应的<code>_config.xml</code>配置如下：<br><figure class="highlight plain"><table><tr><td class="code]]>
+    </summary>
+    
+      <category term="github" scheme="http://blog.junhuih.com/tags/github/"/>
+    
+      <category term="hexo" scheme="http://blog.junhuih.com/tags/hexo/"/>
+    
+      <category term="web" scheme="http://blog.junhuih.com/categories/web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Good bye 2015]]></title>
+    <link href="http://blog.junhuih.com/2015/12/31/good-bye-2015/"/>
+    <id>http://blog.junhuih.com/2015/12/31/good-bye-2015/</id>
+    <published>2016-01-01T06:47:20.000Z</published>
+    <updated>2016-01-01T07:07:19.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>Start to open your mind, try to see what you will be benefited.</p>
+</blockquote>
+<p>2015年马上就过去了，已过而立之年，过去太多时间荒废在封闭的环境和心态里。希望在以后的时间里寻求一些变化，多拥抱一些分享的文化。</p>
+<h2 id="u5C55_u671B2016"><a href="#u5C55_u671B2016" class="headerlink" title="展望2016"></a><strong>展望2016</strong></h2><p>希望2016年能够：</p>
+<p>－ 坚持学习、分享<br>－ 偏重一点基础知识<br>－ 坚持、坚持</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>Start to open your mind, try to see what you will be benefited.</p>
+</blockquote>
+<p>2015年马上就过去了，已过而立之年，过去太多时间荒废在封闭的环境和心态里。希]]>
+    </summary>
+    
+      <category term="others" scheme="http://blog.junhuih.com/tags/others/"/>
+    
+      <category term="others" scheme="http://blog.junhuih.com/categories/others/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Varnish]]></title>
+    <link href="http://blog.junhuih.com/2015/06/16/varnish/"/>
+    <id>http://blog.junhuih.com/2015/06/16/varnish/</id>
+    <published>2015-06-17T04:56:29.000Z</published>
+    <updated>2016-01-01T06:33:02.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><h3 id="Envrionment"><a href="#Envrionment" class="headerlink" title="Envrionment"></a>Envrionment</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ uname <span class="operator">-a</span> &amp;&amp; cat /etc/redhat-release </span><br><span class="line">Linux <span class="number">34</span>e3d501f93d <span class="number">3.16</span>.<span class="number">0</span>-<span class="number">38</span>-generic <span class="comment">#52~14.04.1-Ubuntu SMP Fri May 8 09:43:57 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">CentOS release <span class="number">6.6</span> (Final)</span><br></pre></td></tr></table></figure>
+<h3 id="Install_script"><a href="#Install_script" class="headerlink" title="Install script"></a>Install script</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rpm -ivh http://download.fedoraproject.org/pub/epel/<span class="number">6</span>/x86_64/epel-release-<span class="number">6</span>-<span class="number">8</span>.noarch.rpm</span><br><span class="line"></span><br><span class="line">yum install -y varnish</span><br></pre></td></tr></table></figure>
+<h2 id="Check_installation"><a href="#Check_installation" class="headerlink" title="Check installation"></a>Check installation</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ varnishd -V &amp;&amp; <span class="built_in">type</span> varnishd</span><br><span class="line">varnishd (varnish-<span class="number">4.0</span>.<span class="number">3</span> revision b8c4a34)</span><br><span class="line">Copyright (c) <span class="number">2006</span> Verdens Gang AS</span><br><span class="line">Copyright (c) <span class="number">2006</span>-<span class="number">2014</span> Varnish Software AS</span><br><span class="line">varnishd is hashed (/usr/sbin/varnishd)</span><br></pre></td></tr></table></figure>
+<p>after installation, some important file/service:</p>
+<ul>
+<li>varnish service <code>/etc/init.d/</code></li>
+<li>configuration file <code>/etc/sysconfig/varnish</code></li>
+<li>default vcl file <code>/etc/varnish/default.vcl</code></li>
+</ul>
+<h2 id="Test_Varnish"><a href="#Test_Varnish" class="headerlink" title="Test Varnish"></a>Test Varnish</h2><h2 id="Sample_modify_default-vcl"><a href="#Sample_modify_default-vcl" class="headerlink" title="Sample modify default.vcl"></a>Sample modify default.vcl</h2><p>Edit file <code>/etc/varnish/default.vcl</code>, and just modify default <code>backend</code> server as following:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">16 backend default &#123;&#10;17     .host = &#34;10.10.10.xx&#34;;&#10;18     .port = &#34;80&#34;;&#10;19 &#125;</span><br></pre></td></tr></table></figure>
+<p>Then, start varnish service</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ service varnish start</span><br><span class="line">Starting Varnish Cache: /etc/init.d/varnish: line <span class="number">57</span>: <span class="built_in">ulimit</span>: max locked memory: cannot modify <span class="built_in">limit</span>: Operation not permitted</span><br><span class="line">/etc/init.d/varnish: line <span class="number">61</span>: <span class="built_in">ulimit</span>: max user processes: cannot modify <span class="built_in">limit</span>: Operation not permitted</span><br><span class="line">                                                           [  OK  ]</span><br></pre></td></tr></table></figure>
+<h3 id="Visit_url"><a href="#Visit_url" class="headerlink" title="Visit url"></a>Visit url</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@148a0303ab23 workspace]# curl -I localhost:6081&#10;HTTP/1.1 302 Moved Temporarily&#10;X-Powered-By: Express&#10;Location: /login&#10;Vary: Accept&#10;Content-Type: text/plain; charset=utf-8&#10;Content-Length: 40&#10;set-cookie: connect.sid=s%3A_rI8_NP6DgvxhkjTzN55ISwHiWcgbb-X.Gi91q0PhD0XcClvor9A9mwnWiloyC4LBpOVCIVZffck; Path=/; HttpOnly&#10;Date: Wed, 17 Jun 2015 05:28:15 GMT&#10;X-Varnish: 378160941&#10;Age: 0&#10;Via: 1.1 varnish&#10;Connection: keep-alive</span><br></pre></td></tr></table></figure>
+<h3 id="Check_real-time_log"><a href="#Check_real-time_log" class="headerlink" title="Check real-time log"></a>Check real-time log</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@34e3d501f93d workspace]# varnishlog &#10;*   &#60;&#60; BeReq    &#62;&#62; 65542     &#10;-   Begin          bereq 65541 pass&#10;-   Timestamp      Start: 1434518184.337495 0.000000 0.000000&#10;-   BereqMethod    GET&#10;-   BereqURL       /login&#10;-   BereqProtocol  HTTP/1.1&#10;-   BereqHeader    Host: localhost:3000&#10;-   BereqHeader    Cache-Control: max-age=0&#10;-   BereqHeader    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#10;-   BereqHeader    User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&#10;-   BereqHeader    Accept-Encoding: gzip, deflate, sdch&#10;-   BereqHeader    Accept-Language: en-US,en;q=0.8&#10;-   BereqHeader    Cookie: connect.sid=s5IjIv2vyugOdUJadSBo8Zj20d.8AzeiNPe7cwpbjStvYI3Bd2sz18NQLwECB6vyutMpAY&#10;-   BereqHeader    If-None-Match: W/&#34;R9Yuo2NBFsA==&#34;&#10;-   BereqHeader    X-Forwarded-For: 172.17.42.1&#10;-   BereqHeader    X-Varnish: 65542&#10;....&#10;....</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@148a0303ab23 workspace]# varnishncsa&#10;172.17.42.1 - - [17/Jun/2015:05:55:36 +0000] &#34;POST http://localhost:6081/login HTTP/1.1&#34; 304 0 &#34;http://localhost:6081/login&#34; &#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&#34;&#10;172.17.42.1 - - [17/Jun/2015:05:55:36 +0000] &#34;GET http://localhost:6081/stylesheets/dashboard.css HTTP/1.1&#34; 304 0 &#34;http://localhost:6081/login&#34; &#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&#34;&#10;172.17.42.1 - - [17/Jun/2015:05:55:37 +0000] &#34;GET http://localhost:6081/stylesheets/bootstrap.min.css HTTP/1.1&#34; 304 0 &#34;http://localhost:6081/login&#34; &#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&#34;&#10;172.17.42.1 - - [17/Jun/2015:05:55:37 +0000] &#34;GET http://localhost:6081/images/logo2.png HTTP/1.1&#34; 304 0 &#34;http://localhost:6081/login&#34; &#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&#34;</span><br></pre></td></tr></table></figure>
+<h2 id="Even_2C_you_can_cache_POST_response"><a href="#Even_2C_you_can_cache_POST_response" class="headerlink" title="Even, you can cache POST response"></a>Even, you can cache POST response</h2><h3 id="Change_vcl_file_2C_like_following_example_3A"><a href="#Change_vcl_file_2C_like_following_example_3A" class="headerlink" title="Change vcl file, like following example:"></a>Change vcl file, like following example:</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sub vcl_recv &#123; &#10;    set req.http.x_method = req.request;&#10;    if (req.http.x-info == &#34;error-recv&#34;) &#123;&#10;        error 403 &#34;error in recv function&#34;;&#10;    &#125;&#10;    return (lookup);&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@148a0303ab23 workspace]# curl -s -d&#39;username=a&#38;password=b&#39; -H &#34;x-info: error-recv&#34; -D- -o/dev/null http://localhost:6081/login&#10;HTTP/1.1 403 error in recv function&#10;Server: Varnish&#10;Retry-After: 0&#10;Content-Type: text/html; charset=utf-8&#10;Content-Length: 427&#10;Date: Wed, 17 Jun 2015 06:25:16 GMT&#10;X-Varnish: 157252118&#10;Age: 0&#10;Via: 1.1 varnish&#10;Connection: close&#10;X-Cache: MISS&#10;x-test: POST&#10;&#10;[root@148a0303ab23 workspace]# curl -s -d&#39;username=a&#38;password=b&#39; -H &#34;x-info: error-recv1&#34; -D- -o/dev/null http://localhost:6081/login&#10;HTTP/1.1 200 OK&#10;X-Powered-By: Express&#10;Content-Type: text/html; charset=utf-8&#10;ETag: W/&#34;R9cuBlSmrLd3fYuo2NBFsA==&#34;&#10;set-cookie: connect.sid=s%3An_AWCqv9JirHR81Pb-aBYke8xaL_X6eB.Ns8YElYH30lXvh%2BML%2BYuoXcZ6T3k4GCPfdKMeqNhrTw; Path=/; HttpOnly&#10;Content-Length: 2286&#10;Date: Wed, 17 Jun 2015 06:25:22 GMT&#10;X-Varnish: 157252119&#10;Age: 0&#10;Via: 1.1 varnish&#10;Connection: keep-alive&#10;X-Cache: MISS&#10;x-test: POST</span><br></pre></td></tr></table></figure>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://medium.com/programming-articles/caching-post-responses-with-nginx-1c0c064bb6b0" target="_blank" rel="external">https://medium.com/programming-articles/caching-post-responses-with-nginx-1c0c064bb6b0</a></li>
+<li><a href="https://www.varnish-software.com/static/book/VCL_functions.html" target="_blank" rel="external">https://www.varnish-software.com/static/book/VCL_functions.html</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[Varnish debug]]>
+    
+    </summary>
+    
+      <category term="varnish" scheme="http://blog.junhuih.com/tags/varnish/"/>
+    
+      <category term="web" scheme="http://blog.junhuih.com/categories/web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Data Integration: Sqoop]]></title>
+    <link href="http://blog.junhuih.com/2015/06/12/sqoop/"/>
+    <id>http://blog.junhuih.com/2015/06/12/sqoop/</id>
+    <published>2015-06-13T04:01:22.000Z</published>
+    <updated>2016-01-01T06:40:45.000Z</updated>
+    <content type="html"><![CDATA[<p>Sqoop is an open source tool (originally written at Cloudera) designed to transfer data between Hadoop and RDBMS.</p>
+<h2 id="Comment"><a href="#Comment" class="headerlink" title="Comment"></a>Comment</h2><ul>
+<li>It’s possible to read data directly from an RDBMS in spark application<ul>
+<li>May cause DDOS on RDBMS</li>
+<li>In practice - don’t do it!</li>
+<li>Import data into HDFS beforehand</li>
+</ul>
+</li>
+<li>Use JDBC interface, works with any JDBC-compatible database</li>
+<li>Imports data to HDFS as delimited text files or SequenceFiles<ul>
+<li>Default is comma delimited text files</li>
+</ul>
+</li>
+<li>Can be used for incremental data imports<ul>
+<li>First import retrieves all rows in a table</li>
+<li>Subsequent imports retrieve just rows created since the last import</li>
+</ul>
+</li>
+</ul>
+<h2 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h2><p>Use <code>sqoop help</code> to get basic commands. each command also support <code>help</code> like <code>sqoop import help</code></p>
+<pre><code>$ sqoop help
+usage: sqoop COMMAND [ARGS]
+
+Available commands:
+  codegen            Generate code to interact with database records
+  create-hive-table  Import a table definition into Hive
+  eval               Evaluate a SQL statement and display the results
+  export             Export an HDFS directory to a database table
+  help               List available commands
+  import             Import a table from a database to HDFS
+  import-all-tables  Import tables from a database to HDFS
+  list-databases     List available databases on a server
+  list-tables        List available tables in a database
+  version            Display version information
+
+See &apos;sqoop help COMMAND&apos; for information on a specific command.
+</code></pre><h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="1-_List_Databases"><a href="#1-_List_Databases" class="headerlink" title="1. List Databases"></a>1. List Databases</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sqoop list-databases &#10;--connect jdbc:mysql://localhost &#10;--username xxx --password xxxx</span><br></pre></td></tr></table></figure>
+<h3 id="2-_List_Tables"><a href="#2-_List_Tables" class="headerlink" title="2. List Tables"></a>2. List Tables</h3><p>connection string should include concrete database.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sqoop list-tables &#10; --connect jdbc:mysql://localhost/customer &#10; --username xxx --password xxxx</span><br></pre></td></tr></table></figure>
+<h3 id="3-_Import_table_to_HDFS"><a href="#3-_Import_table_to_HDFS" class="headerlink" title="3. Import table to HDFS"></a>3. Import table to HDFS</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sqoop import &#10; --connect jdbc:mysql://localhost/customer &#10; --username xxx --password xxxx &#10; --fields-terminated-by &#39;\t&#39; --table address</span><br></pre></td></tr></table></figure>
+<h3 id="4-_Verify_HDFS_file"><a href="#4-_Verify_HDFS_file" class="headerlink" title="4. Verify HDFS file"></a>4. Verify HDFS file</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hdfs dfs -ls address&#10;$ hdfs dfs -tail address/part-m-00000</span><br></pre></td></tr></table></figure>
+<h2 id="References_3A"><a href="#References_3A" class="headerlink" title="References:"></a>References:</h2><ul>
+<li><a href="http://sqoop.apache.org/docs/1.4.5/index.html" target="_blank" rel="external">Sqoop Documentation</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[Transfer data between HDFS and RDBMS]]>
+    
+    </summary>
+    
+      <category term="bigdata" scheme="http://blog.junhuih.com/tags/bigdata/"/>
+    
+      <category term="hadoop" scheme="http://blog.junhuih.com/tags/hadoop/"/>
+    
+      <category term="sqoop" scheme="http://blog.junhuih.com/tags/sqoop/"/>
+    
+      <category term="bigdata" scheme="http://blog.junhuih.com/categories/bigdata/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Apache Spark Streaming]]></title>
+    <link href="http://blog.junhuih.com/2015/06/11/spark-streaming/"/>
+    <id>http://blog.junhuih.com/2015/06/11/spark-streaming/</id>
+    <published>2015-06-12T04:36:42.000Z</published>
+    <updated>2016-01-01T06:34:13.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul>
+<li>Spark Streaming provide batch and realtime processing stream data.<ul>
+<li>Website monitor</li>
+<li>Fraud detection</li>
+<li>AD monitor</li>
+</ul>
+</li>
+<li>Much easier than Apache Storm<ul>
+<li>Spark provide high-level api</li>
+<li>Storm provide low-level api</li>
+</ul>
+</li>
+<li>Second-scale latencies</li>
+<li>Once and Only once processing (per duration)</li>
+</ul>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
+<li>Divide up data stream into batches of n seconds  </li>
+<li>Process each batch in Spark as an RDD </li>
+<li>Return results of RDD operaBons in batches </li>
+</ul>
+<p><img src="/images/streaming.jpg" alt=""></p>
+<ul>
+<li>DStream is serval RDDs in a duration</li>
+<li>Two types of DStream operations:<ul>
+<li>Transformations: Create a new DStream from an existing one<ul>
+<li>map/flatMap/filter</li>
+<li>reduceByKey/groupByKey/joinByKey</li>
+</ul>
+</li>
+<li>Output operations: Write data, similar to RDD actions<ul>
+<li>print: print first 10 elements in each RDD</li>
+<li>saveAsTextFiles</li>
+<li>saveAsObjectFiles</li>
+<li>foreachRDD(function(RDD,timestamp):xxxxx)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Running_Spark_Streaming"><a href="#Running_Spark_Streaming" class="headerlink" title="Running Spark Streaming"></a>Running Spark Streaming</h2><p>when running Spark Streaming, you need to either run the shell on cluster or locally with at least two threads<br>`spark-shell –master local[2] -i wordcount.scala</p>
+<p>otherwise if you use locally with one thread, it will show following error:</p>
+<pre><code>15/02/27 10:49:35 WARN BlockManager: Block input-0-1425062975000 already exists on this machine; not re-adding it
+15/02/27 10:49:36 WARN BlockManager: Block input-0-1425062975800 already exists on this machine; not re-adding it
+15/02/27 10:49:37 WARN BlockManager: Block input-0-1425062976800 already exists on this machine; not re-adding it
+</code></pre><p>Using <code>Window</code> or <code>State</code> need <code>CheckPoint</code></p>
+<p>cd to directory contains <code>pom.xml</code><br>use <code>mvn package</code> to compile scala</p>
+<p><a href="https://databricks-training.s3.amazonaws.com/index.html" target="_blank" rel="external">https://databricks-training.s3.amazonaws.com/index.html</a></p>
+<p><a href="http://databricks.gitbooks.io/databricks-spark-reference-applications/content/index.html" target="_blank" rel="external">http://databricks.gitbooks.io/databricks-spark-reference-applications/content/index.html</a></p>
+<p><a href="http://www.michael-noll.com/blog/2014/10/01/kafka-spark-streaming-integration-example-tutorial/" target="_blank" rel="external">http://www.michael-noll.com/blog/2014/10/01/kafka-spark-streaming-integration-example-tutorial/</a></p>
+<h2 id="Broadcast"><a href="#Broadcast" class="headerlink" title="Broadcast"></a>Broadcast</h2><p><a href="https://github.com/JerryLead/SparkInternals/blob/master/markdown/7-Broadcast.md" target="_blank" rel="external">https://github.com/JerryLead/SparkInternals/blob/master/markdown/7-Broadcast.md</a></p>
+<p><a href="https://github.com/JerryLead/SparkInternals/tree/master/markdown" target="_blank" rel="external">https://github.com/JerryLead/SparkInternals/tree/master/markdown</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[bigdata spark]]>
+    
+    </summary>
+    
+      <category term="bigdata" scheme="http://blog.junhuih.com/tags/bigdata/"/>
+    
+      <category term="spark" scheme="http://blog.junhuih.com/tags/spark/"/>
+    
+      <category term="bigdata" scheme="http://blog.junhuih.com/categories/bigdata/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Apache Spark Overview]]></title>
+    <link href="http://blog.junhuih.com/2015/06/11/spark-overview/"/>
+    <id>http://blog.junhuih.com/2015/06/11/spark-overview/</id>
+    <published>2015-06-12T03:56:31.000Z</published>
+    <updated>2016-01-01T06:34:47.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Spark_Stack"><a href="#Spark_Stack" class="headerlink" title="Spark Stack"></a>Spark Stack</h2><p>Spark was created to complement, not replace, Hadoop</p>
+<ul>
+<li>Uses HDFS</li>
+<li>Runs on YARN</li>
+<li>Integrate well with Hadoop ecosystem (flume/sqoop/hbase, in future and kafka)</li>
+</ul>
+<p><img src="/images/spark-stack.jpg" alt="spark stack"></p>
+<p>Hadoop introduced two key concepts:</p>
+<ul>
+<li>Distribute data</li>
+<li>Run computation where the data is</li>
+</ul>
+<p>Spark take it to the next level and <strong>make data distributed in memory</strong>.</p>
+<h3 id="Spark_Framework"><a href="#Spark_Framework" class="headerlink" title="Spark Framework"></a>Spark Framework</h3><p><img src="/images/spark-framework.jpg" alt=""></p>
+<ul>
+<li>Cluster computing<ul>
+<li>Application processes are distributed across a cluster of worker nodes</li>
+<li>Managed by a single “master”</li>
+<li>Scalable and fault tolerant</li>
+</ul>
+</li>
+<li>Distribute storage</li>
+<li>Data in memory</li>
+</ul>
+<h3 id="Common_Use_Case"><a href="#Common_Use_Case" class="headerlink" title="Common Use Case"></a>Common Use Case</h3><ul>
+<li>ETL</li>
+<li>Text mining</li>
+<li>Index building</li>
+<li>Graph creation and analysis</li>
+<li>Pattern recognition</li>
+<li>Collaborativce filtering</li>
+<li>Prediction models</li>
+<li>Sentiment analysis</li>
+<li>Risk assessment</li>
+</ul>
+<h2 id="Spark_VS_Hadoop_MapReduce"><a href="#Spark_VS_Hadoop_MapReduce" class="headerlink" title="Spark VS Hadoop MapReduce"></a>Spark VS Hadoop MapReduce</h2><ul>
+<li>Hadoop MapReduce <ul>
+<li>Widely used, huge investment already made </li>
+<li>Supports and supported by many complementary tools </li>
+<li>Mature, stable, wellWtested technology </li>
+<li>Skilled developers available </li>
+</ul>
+</li>
+<li>Spark <ul>
+<li>Flexible </li>
+<li>Elegant  </li>
+<li>Fast </li>
+<li>Changing rapidly </li>
+</ul>
+</li>
+</ul>
+<h2 id="Hadoop_Ecosystem"><a href="#Hadoop_Ecosystem" class="headerlink" title="Hadoop Ecosystem"></a>Hadoop Ecosystem</h2><h3 id="Data_Storage_3A_HBase__u2013_The_HDFS_Database"><a href="#Data_Storage_3A_HBase__u2013_The_HDFS_Database" class="headerlink" title="Data Storage: HBase – The HDFS Database"></a>Data Storage: HBase – The HDFS Database</h3><ul>
+<li>HBase: big benifit is you <strong>can modify your data</strong></li>
+<li>HBase: database layered on top of HDFS <ul>
+<li>Provides interactive access to data </li>
+</ul>
+</li>
+<li>Stores massive amounts of data <ul>
+<li>Petabytes+ </li>
+</ul>
+</li>
+<li>High throughput <ul>
+<li>Thousands of writes per second (per node) </li>
+</ul>
+</li>
+<li>Handles sparse data well <ul>
+<li>No wasted space for a row with empty columns </li>
+</ul>
+</li>
+<li>Limited access model <ul>
+<li>Optimized for lookup of a row by key rather than full queries </li>
+<li>No transactions: single row operations only </li>
+</ul>
+</li>
+</ul>
+<h3 id="Data_Analysis_3A_Hive"><a href="#Data_Analysis_3A_Hive" class="headerlink" title="Data Analysis: Hive"></a>Data Analysis: Hive</h3><p>Built on Hadoop MapReduce, an SQL-like access to Hadoop data tool.</p>
+<h3 id="Data_Analysis_3A_Impala"><a href="#Data_Analysis_3A_Impala" class="headerlink" title="Data Analysis: Impala"></a>Data Analysis: Impala</h3><p>Open source project, developed by Cloudera, high-speed SQL query engine</p>
+<ul>
+<li>High-performance SQL engine for vast amounts of data <ul>
+<li>Similar query language to HiveQL  </li>
+<li>10 to 50+ Gmes faster than Hive or MapReduce </li>
+</ul>
+</li>
+<li>Impala runs on Hadoop clusters <ul>
+<li>Data stored in HDFS </li>
+<li>Dedicated SQL engine; does not depend on Spark, MapReduce, or Hive </li>
+</ul>
+</li>
+</ul>
+<h3 id="Data_Integration_3A_Flume"><a href="#Data_Integration_3A_Flume" class="headerlink" title="Data Integration: Flume"></a>Data Integration: Flume</h3><p>Flume: A service to move large amounts of data in real-time</p>
+<p>Spark Streaming is integrated with Flume</p>
+<h3 id="Data_Integration_3A_Sqoop"><a href="#Data_Integration_3A_Sqoop" class="headerlink" title="Data Integration: Sqoop"></a>Data Integration: Sqoop</h3><p>Check to see the basic usage for <a href="/2015/02/21/sqoop/">Sqoop</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[spark]]>
+    
+    </summary>
+    
+      <category term="bigdata" scheme="http://blog.junhuih.com/tags/bigdata/"/>
+    
+      <category term="spark" scheme="http://blog.junhuih.com/tags/spark/"/>
+    
+      <category term="bigdata" scheme="http://blog.junhuih.com/categories/bigdata/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Apache Spark hdfs]]></title>
+    <link href="http://blog.junhuih.com/2015/06/11/spark-hdfs/"/>
+    <id>http://blog.junhuih.com/2015/06/11/spark-hdfs/</id>
+    <published>2015-06-12T03:36:29.000Z</published>
+    <updated>2016-01-01T06:35:21.000Z</updated>
+    <content type="html"><![CDATA[<p>Spark Python Shell: pyspark</p>
+<ul>
+<li><strong>Spark Context</strong> is the main entry point of spark.</li>
+<li>Spark Shell provides a preconfigured Spark Context <code>sc</code></li>
+<li>RDD-Resilient Distributed DataSet<ul>
+<li>Resilient: if data lost in memory, it can be re-created</li>
+<li>Distributed: across the cluster</li>
+<li>DataSet</li>
+</ul>
+</li>
+<li>RDDs is the fundamental unit of data in Spark</li>
+<li>Three ways to create RDD(RDD is immutable):<ul>
+<li>From a file or a set of files (Accepts a single file, a wildcard list of files, or a commaUseparated list of files )</li>
+<li>From data in memory</li>
+<li>From another RDD</li>
+</ul>
+</li>
+<li>Two types of RDD operations:<ul>
+<li>Actions: return values<ul>
+<li>count()</li>
+<li>take(n)</li>
+<li>collect()</li>
+<li>saveAsTextFile(file)</li>
+<li>first – return the first element of the RDD</li>
+<li>???foreach – apply a funcDon to each element in an RDD </li>
+<li>top(n) – return the largest n elements using natural ordering </li>
+<li>takeSample(percent) – return an array of sampled elements </li>
+<li>Double options: Statistical functions, e.g., mean, sum, variance, stdev</li>
+</ul>
+</li>
+<li>Transformations: define a new RDD from existing one<ul>
+<li>map()</li>
+<li>filter()</li>
+<li>flatMap – maps one element in the base RDD to mulDple elements</li>
+<li>distinct – filter out duplicates </li>
+<li>union – add all elements of two RDDs into a single new RDD</li>
+<li>sample(percent) – create a new RDD with a sampling of elements  </li>
+<li>flatMapValues</li>
+<li>keyBy: Pair RDD Operation</li>
+<li>countByKey: Pair RDD Operation – return a map with the count of occurrences of each key </li>
+<li>groupByKey: Pair RDD Operation – group all the values for each key in an RDD</li>
+<li>sortByKey(ascending=False): Pair RDD Operation – sort in ascending or descending order </li>
+<li>join: Pair RDD Operation – return an RDD containing all pairs with matching keys from two RDDs </li>
+<li>keys – return an RDD of just the keys, without the values </li>
+<li>values – return an RDD of just the values, without keys </li>
+<li>lookup(key) – return the value(s) for a key</li>
+<li>leftOuterJoin, rightOuterJoin – join, including keys defined only in the lek or right RDDs respectively </li>
+<li>mapValues, flatMapValues – execute a funcDon on just the values, keeping the key the same </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Lazy Execution: Data in RDDs is not processed until an action is executed</li>
+</ul>
+<p><strong>MapReduce in Spark</strong></p>
+<ul>
+<li>MapReduce in Spark works on Pair RDDs </li>
+<li>Map phase <ul>
+<li>Operates on one record at a Dme </li>
+<li>“Maps” each record to one or more new records </li>
+<li>map and flatMap</li>
+</ul>
+</li>
+<li>Reduce phase <ul>
+<li>Works on Map output </li>
+<li>Consolidates mulDple records </li>
+<li>reduceByKey</li>
+</ul>
+</li>
+<li>Pair RDDs are a special form of RDD consisting of Key Value pairs (tuples) </li>
+<li>Spark provides several opera.ons for working with Pair RDDs </li>
+<li>MapReduce is a generic programming model for distributed processing <ul>
+<li>Spark implements MapReduce with Pair RDDs </li>
+<li>Hadoop MapReduce and other implementaDons are limited to a single Map and Reduce phase per job </li>
+<li>Spark allows flexible chaining of map and reduce operaDons </li>
+<li>Spark provides operations to easily perform common MapReduce algorithms like joining, sorting, and grouping </li>
+</ul>
+</li>
+</ul>
+<h2 id="Spark_and_HDFS"><a href="#Spark_and_HDFS" class="headerlink" title="Spark and HDFS"></a>Spark and HDFS</h2><p><img src="/images/spark-hdfs.jpg" alt=""></p>
+<h2 id="Spark_Cluster_Options"><a href="#Spark_Cluster_Options" class="headerlink" title="Spark Cluster Options"></a>Spark Cluster Options</h2><ul>
+<li>Locally: No distributed processing</li>
+<li>Locally with multiple worker threads</li>
+<li>On a cluster<br>– Spark Standalone (not suggest on production)<br>– Apache Hadoop YARN<br>– Apache Mesos</li>
+</ul>
+<h2 id="The_Spark_Driver_Program"><a href="#The_Spark_Driver_Program" class="headerlink" title="The Spark Driver Program"></a>The Spark Driver Program</h2><ul>
+<li>The “main” program<br>– Either the Spark Shell or a Spark application</li>
+<li>Creates a Spark Context configured for the cluster </li>
+<li><p>Communicates with Cluster Manager to distribute tasks to executors </p>
+<p>  <img src="/images/spark-program.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="Runing_Spark_on_a_Standalone_Cluster"><a href="#Runing_Spark_on_a_Standalone_Cluster" class="headerlink" title="Runing Spark on a Standalone Cluster"></a>Runing Spark on a Standalone Cluster</h2><p><img src="/images/spark-standalone.jpg" alt="name of the image"></p>
+<p>Driver program can run use Client Mode or Cluster Mode</p>
+<ul>
+<li>All cluster options support Client Mode</li>
+<li>Only YARN support Cluster Mode</li>
+</ul>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>Spark keeps track of each RDD’s lineage </li>
+<li>By default, every RDD operation executes the entire lineage </li>
+<li>If an RDD will be used multiple times, persist it to avoid re-computation</li>
+<li>Persistence options </li>
+<li>Caching (memory only) – will reUcompute what doesn’t fit in memory </li>
+<li>Disk – will spill to local disk what doesn’t fit in memory </li>
+<li>Replication – will save cached data on multiple nodes in case a node goes down, for job recovery without recomputation </li>
+<li>Serialization – inUmemory caching can be serialized to save memory (but at the cost of performance) </li>
+<li>Checkpointing – saves to HDFS, removes lineage </li>
+</ul>
+<h2 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h2><h3 id="Persistance_Level"><a href="#Persistance_Level" class="headerlink" title="Persistance Level"></a>Persistance Level</h3><ul>
+<li>The cache method stores data in memory only </li>
+<li>The persist method offers other options called Storage Levels </li>
+<li>Storage location<ul>
+<li>MEMORY_ONLY (default) – same as cache</li>
+<li>MEMORY_AND_DISK – Store partions on disk if they do not fit in memory(Called spilling)</li>
+<li>DISK_ONLY – Store all partions on disk </li>
+</ul>
+</li>
+<li>Replication – store partions on two nodes <ul>
+<li>MEMORY_ONLY_2, MEMORY_AND_DISK_2, etc.</li>
+</ul>
+</li>
+<li>Serialization – you can choose to serialize the data in memory <ul>
+<li>MEMORY_ONLY_SER and MEMORY_AND_DISK_SER</li>
+<li>Much more space efficient </li>
+<li>Less time efficient, Choose a fast serialization library</li>
+</ul>
+</li>
+<li>To stop persisting and remove from memory and disk <ul>
+<li>rdd.unpersist()</li>
+</ul>
+</li>
+<li>To change an RDD to a different persistence level <ul>
+<li>Unpersist first </li>
+</ul>
+</li>
+</ul>
+<p><strong>Use cache mode:</strong><br>Best performance if the dataset is likely to be re-used, example:</p>
+<pre><code>myrdd=xx.map(lambda x: x+1)
+myrdd.cache()
+myrdd.count() # any action will triger the cache
+</code></pre><p><img src="/images/cache-memory.jpg" alt="cache in memory"></p>
+<p><strong>Use cache on disk-only:</strong><br>When recomputation is more expensive than disk read, example:</p>
+<pre><code>from pyspark import StorageLevel
+myrdd=xx.map(lambda x: x+1)
+# if the RDD object is in cache on above example, 
+# you should use `myrdd.unpersist()` to unpersist it
+myrdd.persist(StorageLevel.DISK_ONLY) 
+myrdd.count() # any action will triger the cache/persist
+</code></pre><p><img src="/images/cache-disk.jpg" alt="cache use disk"></p>
+<p><strong>Use replication:</strong><br>When recomputation is more expensive than memory, example:</p>
+<pre><code>from pyspark import StorageLevel
+myrdd=xx.map(lambda x: x+1)
+# if the RDD object is in cache on above example, 
+# you should use `myrdd.unpersist()` to unpersist it
+myrdd.persist(StorageLevel.MEMORY_ONLY_2) 
+myrdd.count() # any action will triger the cache/persist
+</code></pre><h2 id="Check_Point"><a href="#Check_Point" class="headerlink" title="Check Point"></a>Check Point</h2><ul>
+<li>Maintaining RDD lineage provides resilience but can also cause problems <ul>
+<li>when the lineage gets very long </li>
+<li>e.g., iterative algorithms, streaming </li>
+</ul>
+</li>
+<li>Recovery can be very expensive </li>
+<li>Potential stack overflow </li>
+</ul>
+<p><strong>Check Point is targeting to fix this issue and short the lineage</strong></p>
+<ul>
+<li>Checkpoining saves the data to HDFS</li>
+<li>Lineage is not saved </li>
+<li>Must be checkpointed before any actions on the RDD </li>
+</ul>
+<p><img src="/images/checkpoint.jpg" alt=""></p>
+<h2 id="Write_Spark_Application"><a href="#Write_Spark_Application" class="headerlink" title="Write Spark Application"></a>Write Spark Application</h2><h3 id="How_to_write_work"><a href="#How_to_write_work" class="headerlink" title="How to write work"></a>How to write work</h3><p>Almost same as shell, normally just reference related libs and create <code>SparkContext</code> on the top</p>
+<ul>
+<li><code>SparkContext</code> normally named by <code>sc</code> for convention</li>
+</ul>
+<p>Code as word count: (wordcount.py)</p>
+<pre><code>import sys
+from pyspark import SparkContext
+from pyspark import SparkConf
+
+if __name__ == &quot;__main__&quot;:
+    if len(sys.argv) &lt; 2:
+        print &gt;&gt; sys.stderr, &quot;Usage: WorldCount &lt;file&gt;&quot;
+        exit(-1)
+    # if you want do define config in code, following comment is the way
+    # normally, it&apos;s better to use separate property file
+    # sconf = SparkConf().setAppName(&quot;My Spark App&quot;).set(&quot;spark.ui.port&quot;, &quot;4041&quot;)
+    sc = SparkContext()
+
+    logfile = sys.argv[1]
+    words = sc.textFile(logfile).flatMap(lambda line: line.split(&quot; &quot;)) \
+             .map(lambda word: (word, 1)) \
+             .reduceByKey(lambda a, b: a + b);
+
+    # Replace this line with your code:
+    print &quot;Number of words: &quot;, words.count()
+</code></pre><p>Comment:<br> Scala or Java Spark applica;ons must be compiled and assembled into JAR<br>files<br>– JAR file will be passed to worker nodes </p>
+<h3 id="Using_spark-submit_run_the_code"><a href="#Using_spark-submit_run_the_code" class="headerlink" title="Using spark-submit run the code"></a>Using <code>spark-submit</code> run the code</h3><p>Detail document see: [<a href="https://spark.apache.org/docs/1.2.0/submitting-applications.html" target="_blank" rel="external">https://spark.apache.org/docs/1.2.0/submitting-applications.html</a>]</p>
+<p><code>spark-submit wordcount.py filename</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spark-submit --master spark://localhost:7077 ~/training_materials/sparkdev/stubs/CountJPGs.py /user/training/weblogs/* --properties-file spark.properties</span><br></pre></td></tr></table></figure>
+<h3 id="Running_multi-jobs_at_the_same_time"><a href="#Running_multi-jobs_at_the_same_time" class="headerlink" title="Running multi-jobs at the same time"></a>Running multi-jobs at the same time</h3><p><img src="/images/multi-jobs.jpg" alt=""></p>
+<p>References:</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[spark]]>
+    
+    </summary>
+    
+      <category term="bigdata" scheme="http://blog.junhuih.com/tags/bigdata/"/>
+    
+      <category term="spark" scheme="http://blog.junhuih.com/tags/spark/"/>
+    
+      <category term="bigdata" scheme="http://blog.junhuih.com/categories/bigdata/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Useful linux command]]></title>
+    <link href="http://blog.junhuih.com/2015/04/29/linux-command/"/>
+    <id>http://blog.junhuih.com/2015/04/29/linux-command/</id>
+    <published>2015-04-29T14:56:29.000Z</published>
+    <updated>2016-01-01T06:35:49.000Z</updated>
+    <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># copy type=file and change-time in last 2 days, default unit is day, can be (s m h d w)</span></span><br><span class="line"><span class="comment"># copy out to folder `../new` with folder structure</span></span><br><span class="line"><span class="comment"># http://note.tc.edu.tw/548.html</span></span><br><span class="line">find -ctime -<span class="number">2</span> -type f -exec cp --parents <span class="string">'&#123;&#125;'</span> ../new \;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># zip directory</span></span><br><span class="line">tar -zcvf archive.tar.gz directory/ </span><br><span class="line"><span class="comment"># unzip directory</span></span><br><span class="line">tar -zxvf archive.tar.gz </span><br><span class="line"></span><br><span class="line"><span class="comment"># search `console` in folder</span></span><br><span class="line">find -type f | xargs grep <span class="string">"console"</span></span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[linux]]>
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.junhuih.com/tags/linux/"/>
+    
+      <category term="linux" scheme="http://blog.junhuih.com/categories/linux/"/>
+    
+  </entry>
+  
+</feed>
