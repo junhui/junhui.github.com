@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
+<title>Data Integration: Sqoop</title>
+<meta name="author" content="Junhuih">
+<meta name="keywords" content="Junhuih, technical, solution, notes, web"><meta name="description " content="Transfer data between HDFS and RDBMS">
+<link rel="icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <aside id="sidebar">
+  <nav id="tags">
+    <a href="http://blog.junhuih.com" id="avatar" style="background-image:url(/favicon.png)"></a>
+    <ul id="tags__ul">
+      <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
+      <li id="web" class="tags__li tags-btn">web</li>
+    
+      <li id="bigdata" class="tags__li tags-btn">bigdata</li>
+    
+      <li id="linux" class="tags__li tags-btn">linux</li>
+    
+      <li id="others" class="tags__li tags-btn">others</li>
+    </ul>
+<!-- TODO:
+    <div id="tags__bottom">
+      <a href="undefined" rel="nofollow" id="icon-github" target="_blank" class="tags-btn fontello"></a>
+      <a href="undefined" rel="nofollow" id="icon-qq" target="_blank" class="tags-btn fontello"></a>
+    </div>
+-->
+  </nav> <!-- end #tags -->
+  <div id="posts-list">
+    <form action="https://www.baidu.com/s?wd=site:shuoit.net" id="search-form" target="_blank">
+      <a href="/" id="mobile-avatar" style="background-image:url(/favicon.png)"></a>
+      <input id="search-input" type="text" placeholder="戳一下不会怀孕" />
+    </form>
+    <nav id="pl__container">
+        <a class="web pl__all" href="/2015/06/16/varnish/" title="Varnish"><span class="pl__circle"></span><span class="pl__title">Varnish</span><span class="pl__date">2015-06-16</span></a>
+        <a class="bigdata pl__all" href="/2015/06/12/sqoop/" title="Data Integration: Sqoop"><span class="pl__circle"></span><span class="pl__title">Data Integration: Sqoop</span><span class="pl__date">2015-06-12</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-streaming/" title="Apache Spark Streaming"><span class="pl__circle"></span><span class="pl__title">Apache Spark Streaming</span><span class="pl__date">2015-06-11</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-overview/" title="Apache Spark Overview"><span class="pl__circle"></span><span class="pl__title">Apache Spark Overview</span><span class="pl__date">2015-06-11</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-hdfs/" title="Apache Spark hdfs"><span class="pl__circle"></span><span class="pl__title">Apache Spark hdfs</span><span class="pl__date">2015-06-11</span></a>
+        <a class="linux pl__all" href="/2015/04/29/linux-command/" title="Useful linux command"><span class="pl__circle"></span><span class="pl__title">Useful linux command</span><span class="pl__date">2015-04-29</span></a>
+        <a class="others pl__all" href="/2015/12/31/good-bye-2015/" title="Good bye 2015"><span class="pl__circle"></span><span class="pl__title">Good bye 2015</span><span class="pl__date">2015-12-31</span></a>
+    </nav>
+  </div> <!-- end #posts-list -->
+</aside> <!-- end #sidebar -->
+  <div id="post">
+    <div id="pjax">
+      <article id="post__content">
+  <h1 id="post__title" data-identifier="2015-06-12">Data Integration: Sqoop</h1>
+<p>Sqoop is an open source tool (originally written at Cloudera) designed to transfer data between Hadoop and RDBMS.</p>
+<h2 id="Comment"><a href="#Comment" class="headerlink" title="Comment"></a>Comment</h2><ul>
+<li>It’s possible to read data directly from an RDBMS in spark application<ul>
+<li>May cause DDOS on RDBMS</li>
+<li>In practice - don’t do it!</li>
+<li>Import data into HDFS beforehand</li>
+</ul>
+</li>
+<li>Use JDBC interface, works with any JDBC-compatible database</li>
+<li>Imports data to HDFS as delimited text files or SequenceFiles<ul>
+<li>Default is comma delimited text files</li>
+</ul>
+</li>
+<li>Can be used for incremental data imports<ul>
+<li>First import retrieves all rows in a table</li>
+<li>Subsequent imports retrieve just rows created since the last import</li>
+</ul>
+</li>
+</ul>
+<h2 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h2><p>Use <code>sqoop help</code> to get basic commands. each command also support <code>help</code> like <code>sqoop import help</code></p>
+<pre><code>$ sqoop help
+usage: sqoop COMMAND [ARGS]
+
+Available commands:
+  codegen            Generate code to interact with database records
+  create-hive-table  Import a table definition into Hive
+  eval               Evaluate a SQL statement and display the results
+  export             Export an HDFS directory to a database table
+  help               List available commands
+  import             Import a table from a database to HDFS
+  import-all-tables  Import tables from a database to HDFS
+  list-databases     List available databases on a server
+  list-tables        List available tables in a database
+  version            Display version information
+
+See &apos;sqoop help COMMAND&apos; for information on a specific command.
+</code></pre><h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="1-_List_Databases"><a href="#1-_List_Databases" class="headerlink" title="1. List Databases"></a>1. List Databases</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sqoop list-databases &#10;--connect jdbc:mysql://localhost &#10;--username xxx --password xxxx</span><br></pre></td></tr></table></figure>
+<h3 id="2-_List_Tables"><a href="#2-_List_Tables" class="headerlink" title="2. List Tables"></a>2. List Tables</h3><p>connection string should include concrete database.</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sqoop list-tables &#10; --connect jdbc:mysql://localhost/customer &#10; --username xxx --password xxxx</span><br></pre></td></tr></table></figure>
+<h3 id="3-_Import_table_to_HDFS"><a href="#3-_Import_table_to_HDFS" class="headerlink" title="3. Import table to HDFS"></a>3. Import table to HDFS</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sqoop import &#10; --connect jdbc:mysql://localhost/customer &#10; --username xxx --password xxxx &#10; --fields-terminated-by &#39;\t&#39; --table address</span><br></pre></td></tr></table></figure>
+<h3 id="4-_Verify_HDFS_file"><a href="#4-_Verify_HDFS_file" class="headerlink" title="4. Verify HDFS file"></a>4. Verify HDFS file</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ hdfs dfs -ls address&#10;$ hdfs dfs -tail address/part-m-00000</span><br></pre></td></tr></table></figure>
+<h2 id="References_3A"><a href="#References_3A" class="headerlink" title="References:"></a>References:</h2><ul>
+<li><a href="http://sqoop.apache.org/docs/1.4.5/index.html" target="_blank" rel="external">Sqoop Documentation</a></li>
+</ul>
+</article><div id="post__share">
+    <!-- 打赏入口 -->
+    <!-- <a id="icon-heart" class="fontello" href="#"></a> -->
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//junhuih.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+      <p id="copyright">Powered by <a href="http://hexo.io" target="_blank">Hexo</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/tangkunyin/hexo-theme-ttstyle" target="_blank">TTStyle</a>&nbsp;&nbsp;|&nbsp;&nbsp; Hosted on <a href="https://github.com" target="_blank">Github</a></p>
+    </div>
+    <div id="post__toc-trigger">
+      <div id="post__toc">
+        <span id="post__toc-title">目录</span>
+        <ul id="post__toc-ul"></ul>
+      </div>
+    </div>
+  </div>
+  <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+<script src="/js/js-lib.js" type="text/javascript"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?8e4e20868ca997be7a75b457bd0ae31b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
+<title>Apache Spark Streaming</title>
+<meta name="author" content="Junhuih">
+<meta name="keywords" content="Junhuih, technical, solution, notes, web"><meta name="description " content="bigdata spark">
+<link rel="icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <aside id="sidebar">
+  <nav id="tags">
+    <a href="http://blog.junhuih.com" id="avatar" style="background-image:url(/favicon.png)"></a>
+    <ul id="tags__ul">
+      <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
+      <li id="web" class="tags__li tags-btn">web</li>
+    
+      <li id="bigdata" class="tags__li tags-btn">bigdata</li>
+    
+      <li id="linux" class="tags__li tags-btn">linux</li>
+    
+      <li id="others" class="tags__li tags-btn">others</li>
+    </ul>
+<!-- TODO:
+    <div id="tags__bottom">
+      <a href="undefined" rel="nofollow" id="icon-github" target="_blank" class="tags-btn fontello"></a>
+      <a href="undefined" rel="nofollow" id="icon-qq" target="_blank" class="tags-btn fontello"></a>
+    </div>
+-->
+  </nav> <!-- end #tags -->
+  <div id="posts-list">
+    <form action="https://www.baidu.com/s?wd=site:shuoit.net" id="search-form" target="_blank">
+      <a href="/" id="mobile-avatar" style="background-image:url(/favicon.png)"></a>
+      <input id="search-input" type="text" placeholder="戳一下不会怀孕" />
+    </form>
+    <nav id="pl__container">
+        <a class="web pl__all" href="/2015/06/16/varnish/" title="Varnish"><span class="pl__circle"></span><span class="pl__title">Varnish</span><span class="pl__date">2015-06-16</span></a>
+        <a class="bigdata pl__all" href="/2015/06/12/sqoop/" title="Data Integration: Sqoop"><span class="pl__circle"></span><span class="pl__title">Data Integration: Sqoop</span><span class="pl__date">2015-06-12</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-streaming/" title="Apache Spark Streaming"><span class="pl__circle"></span><span class="pl__title">Apache Spark Streaming</span><span class="pl__date">2015-06-11</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-overview/" title="Apache Spark Overview"><span class="pl__circle"></span><span class="pl__title">Apache Spark Overview</span><span class="pl__date">2015-06-11</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-hdfs/" title="Apache Spark hdfs"><span class="pl__circle"></span><span class="pl__title">Apache Spark hdfs</span><span class="pl__date">2015-06-11</span></a>
+        <a class="linux pl__all" href="/2015/04/29/linux-command/" title="Useful linux command"><span class="pl__circle"></span><span class="pl__title">Useful linux command</span><span class="pl__date">2015-04-29</span></a>
+        <a class="others pl__all" href="/2015/12/31/good-bye-2015/" title="Good bye 2015"><span class="pl__circle"></span><span class="pl__title">Good bye 2015</span><span class="pl__date">2015-12-31</span></a>
+    </nav>
+  </div> <!-- end #posts-list -->
+</aside> <!-- end #sidebar -->
+  <div id="post">
+    <div id="pjax">
+      <article id="post__content">
+  <h1 id="post__title" data-identifier="2015-06-11">Apache Spark Streaming</h1>
+<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul>
+<li>Spark Streaming provide batch and realtime processing stream data.<ul>
+<li>Website monitor</li>
+<li>Fraud detection</li>
+<li>AD monitor</li>
+</ul>
+</li>
+<li>Much easier than Apache Storm<ul>
+<li>Spark provide high-level api</li>
+<li>Storm provide low-level api</li>
+</ul>
+</li>
+<li>Second-scale latencies</li>
+<li>Once and Only once processing (per duration)</li>
+</ul>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><ul>
+<li>Divide up data stream into batches of n seconds  </li>
+<li>Process each batch in Spark as an RDD </li>
+<li>Return results of RDD operaBons in batches </li>
+</ul>
+<p><img src="/images/streaming.jpg" alt=""></p>
+<ul>
+<li>DStream is serval RDDs in a duration</li>
+<li>Two types of DStream operations:<ul>
+<li>Transformations: Create a new DStream from an existing one<ul>
+<li>map/flatMap/filter</li>
+<li>reduceByKey/groupByKey/joinByKey</li>
+</ul>
+</li>
+<li>Output operations: Write data, similar to RDD actions<ul>
+<li>print: print first 10 elements in each RDD</li>
+<li>saveAsTextFiles</li>
+<li>saveAsObjectFiles</li>
+<li>foreachRDD(function(RDD,timestamp):xxxxx)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Running_Spark_Streaming"><a href="#Running_Spark_Streaming" class="headerlink" title="Running Spark Streaming"></a>Running Spark Streaming</h2><p>when running Spark Streaming, you need to either run the shell on cluster or locally with at least two threads<br>`spark-shell –master local[2] -i wordcount.scala</p>
+<p>otherwise if you use locally with one thread, it will show following error:</p>
+<pre><code>15/02/27 10:49:35 WARN BlockManager: Block input-0-1425062975000 already exists on this machine; not re-adding it
+15/02/27 10:49:36 WARN BlockManager: Block input-0-1425062975800 already exists on this machine; not re-adding it
+15/02/27 10:49:37 WARN BlockManager: Block input-0-1425062976800 already exists on this machine; not re-adding it
+</code></pre><p>Using <code>Window</code> or <code>State</code> need <code>CheckPoint</code></p>
+<p>cd to directory contains <code>pom.xml</code><br>use <code>mvn package</code> to compile scala</p>
+<p><a href="https://databricks-training.s3.amazonaws.com/index.html" target="_blank" rel="external">https://databricks-training.s3.amazonaws.com/index.html</a></p>
+<p><a href="http://databricks.gitbooks.io/databricks-spark-reference-applications/content/index.html" target="_blank" rel="external">http://databricks.gitbooks.io/databricks-spark-reference-applications/content/index.html</a></p>
+<p><a href="http://www.michael-noll.com/blog/2014/10/01/kafka-spark-streaming-integration-example-tutorial/" target="_blank" rel="external">http://www.michael-noll.com/blog/2014/10/01/kafka-spark-streaming-integration-example-tutorial/</a></p>
+<h2 id="Broadcast"><a href="#Broadcast" class="headerlink" title="Broadcast"></a>Broadcast</h2><p><a href="https://github.com/JerryLead/SparkInternals/blob/master/markdown/7-Broadcast.md" target="_blank" rel="external">https://github.com/JerryLead/SparkInternals/blob/master/markdown/7-Broadcast.md</a></p>
+<p><a href="https://github.com/JerryLead/SparkInternals/tree/master/markdown" target="_blank" rel="external">https://github.com/JerryLead/SparkInternals/tree/master/markdown</a></p>
+</article><div id="post__share">
+    <!-- 打赏入口 -->
+    <!-- <a id="icon-heart" class="fontello" href="#"></a> -->
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//junhuih.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+      <p id="copyright">Powered by <a href="http://hexo.io" target="_blank">Hexo</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/tangkunyin/hexo-theme-ttstyle" target="_blank">TTStyle</a>&nbsp;&nbsp;|&nbsp;&nbsp; Hosted on <a href="https://github.com" target="_blank">Github</a></p>
+    </div>
+    <div id="post__toc-trigger">
+      <div id="post__toc">
+        <span id="post__toc-title">目录</span>
+        <ul id="post__toc-ul"></ul>
+      </div>
+    </div>
+  </div>
+  <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+<script src="/js/js-lib.js" type="text/javascript"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?8e4e20868ca997be7a75b457bd0ae31b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

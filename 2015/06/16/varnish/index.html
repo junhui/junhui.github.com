@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
+<title>Varnish</title>
+<meta name="author" content="Junhuih">
+<meta name="keywords" content="Junhuih, technical, solution, notes, web"><meta name="description " content="Varnish debug">
+<link rel="icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <aside id="sidebar">
+  <nav id="tags">
+    <a href="http://blog.junhuih.com" id="avatar" style="background-image:url(/favicon.png)"></a>
+    <ul id="tags__ul">
+      <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
+      <li id="web" class="tags__li tags-btn">web</li>
+    
+      <li id="bigdata" class="tags__li tags-btn">bigdata</li>
+    
+      <li id="linux" class="tags__li tags-btn">linux</li>
+    
+      <li id="others" class="tags__li tags-btn">others</li>
+    </ul>
+<!-- TODO:
+    <div id="tags__bottom">
+      <a href="undefined" rel="nofollow" id="icon-github" target="_blank" class="tags-btn fontello"></a>
+      <a href="undefined" rel="nofollow" id="icon-qq" target="_blank" class="tags-btn fontello"></a>
+    </div>
+-->
+  </nav> <!-- end #tags -->
+  <div id="posts-list">
+    <form action="https://www.baidu.com/s?wd=site:shuoit.net" id="search-form" target="_blank">
+      <a href="/" id="mobile-avatar" style="background-image:url(/favicon.png)"></a>
+      <input id="search-input" type="text" placeholder="戳一下不会怀孕" />
+    </form>
+    <nav id="pl__container">
+        <a class="web pl__all" href="/2015/06/16/varnish/" title="Varnish"><span class="pl__circle"></span><span class="pl__title">Varnish</span><span class="pl__date">2015-06-16</span></a>
+        <a class="bigdata pl__all" href="/2015/06/12/sqoop/" title="Data Integration: Sqoop"><span class="pl__circle"></span><span class="pl__title">Data Integration: Sqoop</span><span class="pl__date">2015-06-12</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-streaming/" title="Apache Spark Streaming"><span class="pl__circle"></span><span class="pl__title">Apache Spark Streaming</span><span class="pl__date">2015-06-11</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-overview/" title="Apache Spark Overview"><span class="pl__circle"></span><span class="pl__title">Apache Spark Overview</span><span class="pl__date">2015-06-11</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-hdfs/" title="Apache Spark hdfs"><span class="pl__circle"></span><span class="pl__title">Apache Spark hdfs</span><span class="pl__date">2015-06-11</span></a>
+        <a class="linux pl__all" href="/2015/04/29/linux-command/" title="Useful linux command"><span class="pl__circle"></span><span class="pl__title">Useful linux command</span><span class="pl__date">2015-04-29</span></a>
+        <a class="others pl__all" href="/2015/12/31/good-bye-2015/" title="Good bye 2015"><span class="pl__circle"></span><span class="pl__title">Good bye 2015</span><span class="pl__date">2015-12-31</span></a>
+    </nav>
+  </div> <!-- end #posts-list -->
+</aside> <!-- end #sidebar -->
+  <div id="post">
+    <div id="pjax">
+      <article id="post__content">
+  <h1 id="post__title" data-identifier="2015-06-16">Varnish</h1>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><h3 id="Envrionment"><a href="#Envrionment" class="headerlink" title="Envrionment"></a>Envrionment</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ uname <span class="operator">-a</span> &amp;&amp; cat /etc/redhat-release </span><br><span class="line">Linux <span class="number">34</span>e3d501f93d <span class="number">3.16</span>.<span class="number">0</span>-<span class="number">38</span>-generic <span class="comment">#52~14.04.1-Ubuntu SMP Fri May 8 09:43:57 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">CentOS release <span class="number">6.6</span> (Final)</span><br></pre></td></tr></table></figure>
+<h3 id="Install_script"><a href="#Install_script" class="headerlink" title="Install script"></a>Install script</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rpm -ivh http://download.fedoraproject.org/pub/epel/<span class="number">6</span>/x86_64/epel-release-<span class="number">6</span>-<span class="number">8</span>.noarch.rpm</span><br><span class="line"></span><br><span class="line">yum install -y varnish</span><br></pre></td></tr></table></figure>
+<h2 id="Check_installation"><a href="#Check_installation" class="headerlink" title="Check installation"></a>Check installation</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ varnishd -V &amp;&amp; <span class="built_in">type</span> varnishd</span><br><span class="line">varnishd (varnish-<span class="number">4.0</span>.<span class="number">3</span> revision b8c4a34)</span><br><span class="line">Copyright (c) <span class="number">2006</span> Verdens Gang AS</span><br><span class="line">Copyright (c) <span class="number">2006</span>-<span class="number">2014</span> Varnish Software AS</span><br><span class="line">varnishd is hashed (/usr/sbin/varnishd)</span><br></pre></td></tr></table></figure>
+<p>after installation, some important file/service:</p>
+<ul>
+<li>varnish service <code>/etc/init.d/</code></li>
+<li>configuration file <code>/etc/sysconfig/varnish</code></li>
+<li>default vcl file <code>/etc/varnish/default.vcl</code></li>
+</ul>
+<h2 id="Test_Varnish"><a href="#Test_Varnish" class="headerlink" title="Test Varnish"></a>Test Varnish</h2><h2 id="Sample_modify_default-vcl"><a href="#Sample_modify_default-vcl" class="headerlink" title="Sample modify default.vcl"></a>Sample modify default.vcl</h2><p>Edit file <code>/etc/varnish/default.vcl</code>, and just modify default <code>backend</code> server as following:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">16 backend default &#123;&#10;17     .host = &#34;10.10.10.xx&#34;;&#10;18     .port = &#34;80&#34;;&#10;19 &#125;</span><br></pre></td></tr></table></figure>
+<p>Then, start varnish service</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ service varnish start</span><br><span class="line">Starting Varnish Cache: /etc/init.d/varnish: line <span class="number">57</span>: <span class="built_in">ulimit</span>: max locked memory: cannot modify <span class="built_in">limit</span>: Operation not permitted</span><br><span class="line">/etc/init.d/varnish: line <span class="number">61</span>: <span class="built_in">ulimit</span>: max user processes: cannot modify <span class="built_in">limit</span>: Operation not permitted</span><br><span class="line">                                                           [  OK  ]</span><br></pre></td></tr></table></figure>
+<h3 id="Visit_url"><a href="#Visit_url" class="headerlink" title="Visit url"></a>Visit url</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@148a0303ab23 workspace]# curl -I localhost:6081&#10;HTTP/1.1 302 Moved Temporarily&#10;X-Powered-By: Express&#10;Location: /login&#10;Vary: Accept&#10;Content-Type: text/plain; charset=utf-8&#10;Content-Length: 40&#10;set-cookie: connect.sid=s%3A_rI8_NP6DgvxhkjTzN55ISwHiWcgbb-X.Gi91q0PhD0XcClvor9A9mwnWiloyC4LBpOVCIVZffck; Path=/; HttpOnly&#10;Date: Wed, 17 Jun 2015 05:28:15 GMT&#10;X-Varnish: 378160941&#10;Age: 0&#10;Via: 1.1 varnish&#10;Connection: keep-alive</span><br></pre></td></tr></table></figure>
+<h3 id="Check_real-time_log"><a href="#Check_real-time_log" class="headerlink" title="Check real-time log"></a>Check real-time log</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@34e3d501f93d workspace]# varnishlog &#10;*   &#60;&#60; BeReq    &#62;&#62; 65542     &#10;-   Begin          bereq 65541 pass&#10;-   Timestamp      Start: 1434518184.337495 0.000000 0.000000&#10;-   BereqMethod    GET&#10;-   BereqURL       /login&#10;-   BereqProtocol  HTTP/1.1&#10;-   BereqHeader    Host: localhost:3000&#10;-   BereqHeader    Cache-Control: max-age=0&#10;-   BereqHeader    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&#10;-   BereqHeader    User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&#10;-   BereqHeader    Accept-Encoding: gzip, deflate, sdch&#10;-   BereqHeader    Accept-Language: en-US,en;q=0.8&#10;-   BereqHeader    Cookie: connect.sid=s5IjIv2vyugOdUJadSBo8Zj20d.8AzeiNPe7cwpbjStvYI3Bd2sz18NQLwECB6vyutMpAY&#10;-   BereqHeader    If-None-Match: W/&#34;R9Yuo2NBFsA==&#34;&#10;-   BereqHeader    X-Forwarded-For: 172.17.42.1&#10;-   BereqHeader    X-Varnish: 65542&#10;....&#10;....</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@148a0303ab23 workspace]# varnishncsa&#10;172.17.42.1 - - [17/Jun/2015:05:55:36 +0000] &#34;POST http://localhost:6081/login HTTP/1.1&#34; 304 0 &#34;http://localhost:6081/login&#34; &#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&#34;&#10;172.17.42.1 - - [17/Jun/2015:05:55:36 +0000] &#34;GET http://localhost:6081/stylesheets/dashboard.css HTTP/1.1&#34; 304 0 &#34;http://localhost:6081/login&#34; &#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&#34;&#10;172.17.42.1 - - [17/Jun/2015:05:55:37 +0000] &#34;GET http://localhost:6081/stylesheets/bootstrap.min.css HTTP/1.1&#34; 304 0 &#34;http://localhost:6081/login&#34; &#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&#34;&#10;172.17.42.1 - - [17/Jun/2015:05:55:37 +0000] &#34;GET http://localhost:6081/images/logo2.png HTTP/1.1&#34; 304 0 &#34;http://localhost:6081/login&#34; &#34;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36&#34;</span><br></pre></td></tr></table></figure>
+<h2 id="Even_2C_you_can_cache_POST_response"><a href="#Even_2C_you_can_cache_POST_response" class="headerlink" title="Even, you can cache POST response"></a>Even, you can cache POST response</h2><h3 id="Change_vcl_file_2C_like_following_example_3A"><a href="#Change_vcl_file_2C_like_following_example_3A" class="headerlink" title="Change vcl file, like following example:"></a>Change vcl file, like following example:</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sub vcl_recv &#123; &#10;    set req.http.x_method = req.request;&#10;    if (req.http.x-info == &#34;error-recv&#34;) &#123;&#10;        error 403 &#34;error in recv function&#34;;&#10;    &#125;&#10;    return (lookup);&#10;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@148a0303ab23 workspace]# curl -s -d&#39;username=a&#38;password=b&#39; -H &#34;x-info: error-recv&#34; -D- -o/dev/null http://localhost:6081/login&#10;HTTP/1.1 403 error in recv function&#10;Server: Varnish&#10;Retry-After: 0&#10;Content-Type: text/html; charset=utf-8&#10;Content-Length: 427&#10;Date: Wed, 17 Jun 2015 06:25:16 GMT&#10;X-Varnish: 157252118&#10;Age: 0&#10;Via: 1.1 varnish&#10;Connection: close&#10;X-Cache: MISS&#10;x-test: POST&#10;&#10;[root@148a0303ab23 workspace]# curl -s -d&#39;username=a&#38;password=b&#39; -H &#34;x-info: error-recv1&#34; -D- -o/dev/null http://localhost:6081/login&#10;HTTP/1.1 200 OK&#10;X-Powered-By: Express&#10;Content-Type: text/html; charset=utf-8&#10;ETag: W/&#34;R9cuBlSmrLd3fYuo2NBFsA==&#34;&#10;set-cookie: connect.sid=s%3An_AWCqv9JirHR81Pb-aBYke8xaL_X6eB.Ns8YElYH30lXvh%2BML%2BYuoXcZ6T3k4GCPfdKMeqNhrTw; Path=/; HttpOnly&#10;Content-Length: 2286&#10;Date: Wed, 17 Jun 2015 06:25:22 GMT&#10;X-Varnish: 157252119&#10;Age: 0&#10;Via: 1.1 varnish&#10;Connection: keep-alive&#10;X-Cache: MISS&#10;x-test: POST</span><br></pre></td></tr></table></figure>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://medium.com/programming-articles/caching-post-responses-with-nginx-1c0c064bb6b0" target="_blank" rel="external">https://medium.com/programming-articles/caching-post-responses-with-nginx-1c0c064bb6b0</a></li>
+<li><a href="https://www.varnish-software.com/static/book/VCL_functions.html" target="_blank" rel="external">https://www.varnish-software.com/static/book/VCL_functions.html</a></li>
+</ul>
+</article><div id="post__share">
+    <!-- 打赏入口 -->
+    <!-- <a id="icon-heart" class="fontello" href="#"></a> -->
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//junhuih.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+      <p id="copyright">Powered by <a href="http://hexo.io" target="_blank">Hexo</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/tangkunyin/hexo-theme-ttstyle" target="_blank">TTStyle</a>&nbsp;&nbsp;|&nbsp;&nbsp; Hosted on <a href="https://github.com" target="_blank">Github</a></p>
+    </div>
+    <div id="post__toc-trigger">
+      <div id="post__toc">
+        <span id="post__toc-title">目录</span>
+        <ul id="post__toc-ul"></ul>
+      </div>
+    </div>
+  </div>
+  <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+<script src="/js/js-lib.js" type="text/javascript"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?8e4e20868ca997be7a75b457bd0ae31b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
+<title>Apache Spark hdfs</title>
+<meta name="author" content="Junhuih">
+<meta name="keywords" content="Junhuih, technical, solution, notes, web"><meta name="description " content="spark">
+<link rel="icon" href="/favicon.png">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <aside id="sidebar">
+  <nav id="tags">
+    <a href="http://blog.junhuih.com" id="avatar" style="background-image:url(/favicon.png)"></a>
+    <ul id="tags__ul">
+      <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
+      <li id="web" class="tags__li tags-btn">web</li>
+    
+      <li id="bigdata" class="tags__li tags-btn">bigdata</li>
+    
+      <li id="linux" class="tags__li tags-btn">linux</li>
+    
+      <li id="others" class="tags__li tags-btn">others</li>
+    </ul>
+<!-- TODO:
+    <div id="tags__bottom">
+      <a href="undefined" rel="nofollow" id="icon-github" target="_blank" class="tags-btn fontello"></a>
+      <a href="undefined" rel="nofollow" id="icon-qq" target="_blank" class="tags-btn fontello"></a>
+    </div>
+-->
+  </nav> <!-- end #tags -->
+  <div id="posts-list">
+    <form action="https://www.baidu.com/s?wd=site:shuoit.net" id="search-form" target="_blank">
+      <a href="/" id="mobile-avatar" style="background-image:url(/favicon.png)"></a>
+      <input id="search-input" type="text" placeholder="戳一下不会怀孕" />
+    </form>
+    <nav id="pl__container">
+        <a class="web pl__all" href="/2015/06/16/varnish/" title="Varnish"><span class="pl__circle"></span><span class="pl__title">Varnish</span><span class="pl__date">2015-06-16</span></a>
+        <a class="bigdata pl__all" href="/2015/06/12/sqoop/" title="Data Integration: Sqoop"><span class="pl__circle"></span><span class="pl__title">Data Integration: Sqoop</span><span class="pl__date">2015-06-12</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-streaming/" title="Apache Spark Streaming"><span class="pl__circle"></span><span class="pl__title">Apache Spark Streaming</span><span class="pl__date">2015-06-11</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-overview/" title="Apache Spark Overview"><span class="pl__circle"></span><span class="pl__title">Apache Spark Overview</span><span class="pl__date">2015-06-11</span></a>
+        <a class="bigdata pl__all" href="/2015/06/11/spark-hdfs/" title="Apache Spark hdfs"><span class="pl__circle"></span><span class="pl__title">Apache Spark hdfs</span><span class="pl__date">2015-06-11</span></a>
+        <a class="linux pl__all" href="/2015/04/29/linux-command/" title="Useful linux command"><span class="pl__circle"></span><span class="pl__title">Useful linux command</span><span class="pl__date">2015-04-29</span></a>
+        <a class="others pl__all" href="/2015/12/31/good-bye-2015/" title="Good bye 2015"><span class="pl__circle"></span><span class="pl__title">Good bye 2015</span><span class="pl__date">2015-12-31</span></a>
+    </nav>
+  </div> <!-- end #posts-list -->
+</aside> <!-- end #sidebar -->
+  <div id="post">
+    <div id="pjax">
+      <article id="post__content">
+  <h1 id="post__title" data-identifier="2015-06-11">Apache Spark hdfs</h1>
+<p>Spark Python Shell: pyspark</p>
+<ul>
+<li><strong>Spark Context</strong> is the main entry point of spark.</li>
+<li>Spark Shell provides a preconfigured Spark Context <code>sc</code></li>
+<li>RDD-Resilient Distributed DataSet<ul>
+<li>Resilient: if data lost in memory, it can be re-created</li>
+<li>Distributed: across the cluster</li>
+<li>DataSet</li>
+</ul>
+</li>
+<li>RDDs is the fundamental unit of data in Spark</li>
+<li>Three ways to create RDD(RDD is immutable):<ul>
+<li>From a file or a set of files (Accepts a single file, a wildcard list of files, or a commaUseparated list of files )</li>
+<li>From data in memory</li>
+<li>From another RDD</li>
+</ul>
+</li>
+<li>Two types of RDD operations:<ul>
+<li>Actions: return values<ul>
+<li>count()</li>
+<li>take(n)</li>
+<li>collect()</li>
+<li>saveAsTextFile(file)</li>
+<li>first – return the first element of the RDD</li>
+<li>???foreach – apply a funcDon to each element in an RDD </li>
+<li>top(n) – return the largest n elements using natural ordering </li>
+<li>takeSample(percent) – return an array of sampled elements </li>
+<li>Double options: Statistical functions, e.g., mean, sum, variance, stdev</li>
+</ul>
+</li>
+<li>Transformations: define a new RDD from existing one<ul>
+<li>map()</li>
+<li>filter()</li>
+<li>flatMap – maps one element in the base RDD to mulDple elements</li>
+<li>distinct – filter out duplicates </li>
+<li>union – add all elements of two RDDs into a single new RDD</li>
+<li>sample(percent) – create a new RDD with a sampling of elements  </li>
+<li>flatMapValues</li>
+<li>keyBy: Pair RDD Operation</li>
+<li>countByKey: Pair RDD Operation – return a map with the count of occurrences of each key </li>
+<li>groupByKey: Pair RDD Operation – group all the values for each key in an RDD</li>
+<li>sortByKey(ascending=False): Pair RDD Operation – sort in ascending or descending order </li>
+<li>join: Pair RDD Operation – return an RDD containing all pairs with matching keys from two RDDs </li>
+<li>keys – return an RDD of just the keys, without the values </li>
+<li>values – return an RDD of just the values, without keys </li>
+<li>lookup(key) – return the value(s) for a key</li>
+<li>leftOuterJoin, rightOuterJoin – join, including keys defined only in the lek or right RDDs respectively </li>
+<li>mapValues, flatMapValues – execute a funcDon on just the values, keeping the key the same </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Lazy Execution: Data in RDDs is not processed until an action is executed</li>
+</ul>
+<p><strong>MapReduce in Spark</strong></p>
+<ul>
+<li>MapReduce in Spark works on Pair RDDs </li>
+<li>Map phase <ul>
+<li>Operates on one record at a Dme </li>
+<li>“Maps” each record to one or more new records </li>
+<li>map and flatMap</li>
+</ul>
+</li>
+<li>Reduce phase <ul>
+<li>Works on Map output </li>
+<li>Consolidates mulDple records </li>
+<li>reduceByKey</li>
+</ul>
+</li>
+<li>Pair RDDs are a special form of RDD consisting of Key Value pairs (tuples) </li>
+<li>Spark provides several opera.ons for working with Pair RDDs </li>
+<li>MapReduce is a generic programming model for distributed processing <ul>
+<li>Spark implements MapReduce with Pair RDDs </li>
+<li>Hadoop MapReduce and other implementaDons are limited to a single Map and Reduce phase per job </li>
+<li>Spark allows flexible chaining of map and reduce operaDons </li>
+<li>Spark provides operations to easily perform common MapReduce algorithms like joining, sorting, and grouping </li>
+</ul>
+</li>
+</ul>
+<h2 id="Spark_and_HDFS"><a href="#Spark_and_HDFS" class="headerlink" title="Spark and HDFS"></a>Spark and HDFS</h2><p><img src="/images/spark-hdfs.jpg" alt=""></p>
+<h2 id="Spark_Cluster_Options"><a href="#Spark_Cluster_Options" class="headerlink" title="Spark Cluster Options"></a>Spark Cluster Options</h2><ul>
+<li>Locally: No distributed processing</li>
+<li>Locally with multiple worker threads</li>
+<li>On a cluster<br>– Spark Standalone (not suggest on production)<br>– Apache Hadoop YARN<br>– Apache Mesos</li>
+</ul>
+<h2 id="The_Spark_Driver_Program"><a href="#The_Spark_Driver_Program" class="headerlink" title="The Spark Driver Program"></a>The Spark Driver Program</h2><ul>
+<li>The “main” program<br>– Either the Spark Shell or a Spark application</li>
+<li>Creates a Spark Context configured for the cluster </li>
+<li><p>Communicates with Cluster Manager to distribute tasks to executors </p>
+<p>  <img src="/images/spark-program.jpg" alt=""></p>
+</li>
+</ul>
+<h2 id="Runing_Spark_on_a_Standalone_Cluster"><a href="#Runing_Spark_on_a_Standalone_Cluster" class="headerlink" title="Runing Spark on a Standalone Cluster"></a>Runing Spark on a Standalone Cluster</h2><p><img src="/images/spark-standalone.jpg" alt="name of the image"></p>
+<p>Driver program can run use Client Mode or Cluster Mode</p>
+<ul>
+<li>All cluster options support Client Mode</li>
+<li>Only YARN support Cluster Mode</li>
+</ul>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>Spark keeps track of each RDD’s lineage </li>
+<li>By default, every RDD operation executes the entire lineage </li>
+<li>If an RDD will be used multiple times, persist it to avoid re-computation</li>
+<li>Persistence options </li>
+<li>Caching (memory only) – will reUcompute what doesn’t fit in memory </li>
+<li>Disk – will spill to local disk what doesn’t fit in memory </li>
+<li>Replication – will save cached data on multiple nodes in case a node goes down, for job recovery without recomputation </li>
+<li>Serialization – inUmemory caching can be serialized to save memory (but at the cost of performance) </li>
+<li>Checkpointing – saves to HDFS, removes lineage </li>
+</ul>
+<h2 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h2><h3 id="Persistance_Level"><a href="#Persistance_Level" class="headerlink" title="Persistance Level"></a>Persistance Level</h3><ul>
+<li>The cache method stores data in memory only </li>
+<li>The persist method offers other options called Storage Levels </li>
+<li>Storage location<ul>
+<li>MEMORY_ONLY (default) – same as cache</li>
+<li>MEMORY_AND_DISK – Store partions on disk if they do not fit in memory(Called spilling)</li>
+<li>DISK_ONLY – Store all partions on disk </li>
+</ul>
+</li>
+<li>Replication – store partions on two nodes <ul>
+<li>MEMORY_ONLY_2, MEMORY_AND_DISK_2, etc.</li>
+</ul>
+</li>
+<li>Serialization – you can choose to serialize the data in memory <ul>
+<li>MEMORY_ONLY_SER and MEMORY_AND_DISK_SER</li>
+<li>Much more space efficient </li>
+<li>Less time efficient, Choose a fast serialization library</li>
+</ul>
+</li>
+<li>To stop persisting and remove from memory and disk <ul>
+<li>rdd.unpersist()</li>
+</ul>
+</li>
+<li>To change an RDD to a different persistence level <ul>
+<li>Unpersist first </li>
+</ul>
+</li>
+</ul>
+<p><strong>Use cache mode:</strong><br>Best performance if the dataset is likely to be re-used, example:</p>
+<pre><code>myrdd=xx.map(lambda x: x+1)
+myrdd.cache()
+myrdd.count() # any action will triger the cache
+</code></pre><p><img src="/images/cache-memory.jpg" alt="cache in memory"></p>
+<p><strong>Use cache on disk-only:</strong><br>When recomputation is more expensive than disk read, example:</p>
+<pre><code>from pyspark import StorageLevel
+myrdd=xx.map(lambda x: x+1)
+# if the RDD object is in cache on above example, 
+# you should use `myrdd.unpersist()` to unpersist it
+myrdd.persist(StorageLevel.DISK_ONLY) 
+myrdd.count() # any action will triger the cache/persist
+</code></pre><p><img src="/images/cache-disk.jpg" alt="cache use disk"></p>
+<p><strong>Use replication:</strong><br>When recomputation is more expensive than memory, example:</p>
+<pre><code>from pyspark import StorageLevel
+myrdd=xx.map(lambda x: x+1)
+# if the RDD object is in cache on above example, 
+# you should use `myrdd.unpersist()` to unpersist it
+myrdd.persist(StorageLevel.MEMORY_ONLY_2) 
+myrdd.count() # any action will triger the cache/persist
+</code></pre><h2 id="Check_Point"><a href="#Check_Point" class="headerlink" title="Check Point"></a>Check Point</h2><ul>
+<li>Maintaining RDD lineage provides resilience but can also cause problems <ul>
+<li>when the lineage gets very long </li>
+<li>e.g., iterative algorithms, streaming </li>
+</ul>
+</li>
+<li>Recovery can be very expensive </li>
+<li>Potential stack overflow </li>
+</ul>
+<p><strong>Check Point is targeting to fix this issue and short the lineage</strong></p>
+<ul>
+<li>Checkpoining saves the data to HDFS</li>
+<li>Lineage is not saved </li>
+<li>Must be checkpointed before any actions on the RDD </li>
+</ul>
+<p><img src="/images/checkpoint.jpg" alt=""></p>
+<h2 id="Write_Spark_Application"><a href="#Write_Spark_Application" class="headerlink" title="Write Spark Application"></a>Write Spark Application</h2><h3 id="How_to_write_work"><a href="#How_to_write_work" class="headerlink" title="How to write work"></a>How to write work</h3><p>Almost same as shell, normally just reference related libs and create <code>SparkContext</code> on the top</p>
+<ul>
+<li><code>SparkContext</code> normally named by <code>sc</code> for convention</li>
+</ul>
+<p>Code as word count: (wordcount.py)</p>
+<pre><code>import sys
+from pyspark import SparkContext
+from pyspark import SparkConf
+
+if __name__ == &quot;__main__&quot;:
+    if len(sys.argv) &lt; 2:
+        print &gt;&gt; sys.stderr, &quot;Usage: WorldCount &lt;file&gt;&quot;
+        exit(-1)
+    # if you want do define config in code, following comment is the way
+    # normally, it&apos;s better to use separate property file
+    # sconf = SparkConf().setAppName(&quot;My Spark App&quot;).set(&quot;spark.ui.port&quot;, &quot;4041&quot;)
+    sc = SparkContext()
+
+    logfile = sys.argv[1]
+    words = sc.textFile(logfile).flatMap(lambda line: line.split(&quot; &quot;)) \
+             .map(lambda word: (word, 1)) \
+             .reduceByKey(lambda a, b: a + b);
+
+    # Replace this line with your code:
+    print &quot;Number of words: &quot;, words.count()
+</code></pre><p>Comment:<br> Scala or Java Spark applica;ons must be compiled and assembled into JAR<br>files<br>– JAR file will be passed to worker nodes </p>
+<h3 id="Using_spark-submit_run_the_code"><a href="#Using_spark-submit_run_the_code" class="headerlink" title="Using spark-submit run the code"></a>Using <code>spark-submit</code> run the code</h3><p>Detail document see: [<a href="https://spark.apache.org/docs/1.2.0/submitting-applications.html" target="_blank" rel="external">https://spark.apache.org/docs/1.2.0/submitting-applications.html</a>]</p>
+<p><code>spark-submit wordcount.py filename</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spark-submit --master spark://localhost:7077 ~/training_materials/sparkdev/stubs/CountJPGs.py /user/training/weblogs/* --properties-file spark.properties</span><br></pre></td></tr></table></figure>
+<h3 id="Running_multi-jobs_at_the_same_time"><a href="#Running_multi-jobs_at_the_same_time" class="headerlink" title="Running multi-jobs at the same time"></a>Running multi-jobs at the same time</h3><p><img src="/images/multi-jobs.jpg" alt=""></p>
+<p>References:</p>
+</article><div id="post__share">
+    <!-- 打赏入口 -->
+    <!-- <a id="icon-heart" class="fontello" href="#"></a> -->
+</div>
+
+
+<div id="disqus_thread"></div>
+<script>
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//junhuih.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+      <p id="copyright">Powered by <a href="http://hexo.io" target="_blank">Hexo</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/tangkunyin/hexo-theme-ttstyle" target="_blank">TTStyle</a>&nbsp;&nbsp;|&nbsp;&nbsp; Hosted on <a href="https://github.com" target="_blank">Github</a></p>
+    </div>
+    <div id="post__toc-trigger">
+      <div id="post__toc">
+        <span id="post__toc-title">目录</span>
+        <ul id="post__toc-ul"></ul>
+      </div>
+    </div>
+  </div>
+  <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+<script src="/js/js-lib.js" type="text/javascript"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?8e4e20868ca997be7a75b457bd0ae31b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>
