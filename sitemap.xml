@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.junhuih.com/2016/01/04/Spring-Cacheable-annotation-with-google-guava-and-ehcache/</loc>
+    <lastmod>2016-01-05T07:12:29.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.junhuih.com/2016/01/04/use-spring-resttemplate-and-apache-httpclient/</loc>
+    <lastmod>2016-01-05T00:13:02.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.junhuih.com/2015/12/31/deploy-hexo-blog-to-github/</loc>
     <lastmod>2016-01-01T07:53:30.000Z</lastmod>
   </url>
