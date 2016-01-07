@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.junhuih.com/2016/01/06/use-redis-as-mybatis-cache-storage/</loc>
+    <lastmod>2016-01-07T07:32:16.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.junhuih.com/2016/01/05/custom-keygenerator-in-ehcache-with-spring/</loc>
     <lastmod>2016-01-05T21:46:23.000Z</lastmod>
   </url>
