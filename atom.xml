@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Web, Solution]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="https://junhuih.com/"/>
-  <updated>2016-01-09T06:34:20.000Z</updated>
+  <updated>2016-01-09T06:38:28.000Z</updated>
   <id>https://junhuih.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="https://junhuih.com/2016/01/08/anti-xss-in-java-use-coverity-security-library/"/>
     <id>https://junhuih.com/2016/01/08/anti-xss-in-java-use-coverity-security-library/</id>
     <published>2016-01-09T01:40:42.000Z</published>
-    <updated>2016-01-09T06:34:20.000Z</updated>
+    <updated>2016-01-09T06:38:28.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>跨站点攻击（XSS）是一个WEB应用经常面对的问题，一个安全性不好的网站，很容易就被一些低级的hacker通过xss来攻击。</p>
 </blockquote>
@@ -99,7 +99,7 @@
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;%@ taglib uri="http://coverity.com/security" prefix="cov" %&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type="text/javascript"&gt;</span><br><span class="line">    var x = '$&#123;cov:jsStringEscape(param.tainted)&#125;';</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;div onclick="alert('$&#123;cov:htmlEscape(cov:jsStringEscape(param.tainted))&#125;')"&gt;</span><br><span class="line">    $&#123;cov:htmlEscape(param.tainted)&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 <p>java代码中，按下面方式使用：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> com.coverity.security.Escape;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">"&lt;div onclick='alert(\""</span> </span><br><span class="line">       + Escape.html(Escape.jsString(request.getParameter(<span class="string">"tainted"</span>)))</span><br><span class="line">       + <span class="string">"\")'&gt;"</span> </span><br><span class="line">       + Escape.html(request.getParameter(<span class="string">"tainted"</span>)) </span><br><span class="line">       + <span class="string">"&lt;/div&gt;"</span>;</span><br></pre></td></tr></table></figure>
-<p>使用时，需根据要转义代码出现的位置来使用，如果同时满足多个条件，则需要使用符合形式，如在a标签里href里出现的javascript代码，它满足：</p>
+<p>使用时，需根据要转义代码出现的位置来使用，如果同时满足多个条件，则需要使用复合形式，如在a标签里href里出现的javascript代码，它满足：</p>
 <ol>
 <li>在html属性里</li>
 <li>在url的位置上</li>
