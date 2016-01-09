@@ -3,9 +3,9 @@
   <title><![CDATA[Junhuih Notes]]></title>
   <subtitle><![CDATA[Web, Solution]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="http://blog.junhuih.com/"/>
-  <updated>2016-01-07T07:32:16.000Z</updated>
-  <id>http://blog.junhuih.com/</id>
+  <link href="https://junhuih.com/"/>
+  <updated>2016-01-09T06:34:20.000Z</updated>
+  <id>https://junhuih.com/</id>
   
   <author>
     <name><![CDATA[Junhuih]]></name>
@@ -15,9 +15,122 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[anti-xss in java use coverity security library]]></title>
+    <link href="https://junhuih.com/2016/01/08/anti-xss-in-java-use-coverity-security-library/"/>
+    <id>https://junhuih.com/2016/01/08/anti-xss-in-java-use-coverity-security-library/</id>
+    <published>2016-01-09T01:40:42.000Z</published>
+    <updated>2016-01-09T06:34:20.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>跨站点攻击（XSS）是一个WEB应用经常面对的问题，一个安全性不好的网站，很容易就被一些低级的hacker通过xss来攻击。</p>
+</blockquote>
+<p>在.NET里，微软有官方出品一个<a href="https://goo.gl/lLqz2K" target="_blank" rel="external"><code>.NET AntiXSS Library</code></a>类库，用来帮助developer简单应对跨站点攻击的问题。在java里，同样也有一个类似的类库<a href="https://github.com/coverity/coverity-security-library" target="_blank" rel="external"><code>coverity-security-library</code></a>，这个类库是Coverity公司出品的。</p>
+<blockquote>
+<p>关于Coverity公司： Coverity是开发测试行业的领头人，也是那些需要防止软件故障损害公司品牌和底线的公司的信赖标准。全球有超过1100个像Honeywell, NEC, BAE Systems, Juniper Networks, BMC Software, Samsung, France Telecom, Sega, 和 Schneider Electric这样的国际品牌依靠Coverity确保其产品和服务的质量与安全。诸多行业领先领头人利用Coverity交付高质量产品、维护竞争优势并增强客户满意度和创新能力。</p>
+</blockquote>
+<h2 id="u7C7B_u5E93_u652F_u6301"><a href="#u7C7B_u5E93_u652F_u6301" class="headerlink" title="类库支持"></a>类库支持</h2><p>这套类库里主要有两种方式：</p>
+<h3 id="Escaper"><a href="#Escaper" class="headerlink" title="Escaper"></a>Escaper</h3><p>Escaper是对输入的任何字符根据在Html中出现的位置不同，采用不同的转义方式，下面是类库中提供的方法以及对应的转义列表：</p>
+<ul>
+<li>Escape.cssString(String)<blockquote>
+<p>CSS string characters: ‘ (U+0022), “ (U+0027), \ (U+005C)<br>HTML characters: / (U+002F), &lt; (U+003C), &gt; (U+003E), &amp; (U+0026)<br>Control characters: \b (U+0008), \t (U+0009), \n (U+000A), \f (U+000C), \r (U+000D)<br>Unicode newlines: LS (U+2028), PS (U+2029)</p>
+</blockquote>
+</li>
+<li>Escape.html(String)<blockquote>
+<p>HTML characters: ‘ (U+0022), “ (U+0027), \ (U+005C), / (U+002F), &lt; (U+003C), &gt; (U+003E), &amp; (U+0026)<br>Control characters: \t (U+0009), \n (U+000A), \f (U+000C), \r (U+000D), SPACE (U+0020)<br>Unicode newlines: LS (U+2028), PS (U+2029)</p>
+</blockquote>
+</li>
+<li>Escape.htmlText(String)<blockquote>
+<p>HTML characters: ‘ (U+0022), “ (U+0027), &lt; (U+003C), &gt; (U+003E), &amp; (U+0026)</p>
+</blockquote>
+</li>
+<li>Escape.jsRegex(String)<blockquote>
+<p>Regex characters: \ (U+005C), / (U+002F), ( (U+0028), [ (U+005B), { (U+007B), ] (U+005D), } (U+007D), ) (U+0029), * (U+002A), + (U+002B), - (U+002D), . (U+002E), ? (U+003F), ! (U+0021), ^ (U+005E), $ (U+0024), | (U+007C)<br>Control characters: \t (U+0009), \n (U+000A), \v (U+000B), \f (U+000C), \r (U+000D)</p>
+</blockquote>
+</li>
+<li>Escape.jsString(String)<blockquote>
+<p>JS String characters: ‘ (U+0022), “ (U+0027), \ (U+005C)<br>URI encoding characters: % (U+0025)<br>HTML characters: / (U+002F), &lt; (U+003C), &gt; (U+003E), &amp; (U+0026)<br>Control characters: \b (U+0008), \t (U+0009), \n (U+000A), 0x0b (U+000B), \f (U+000C), \r (U+000D)<br>Unicode newlines: LS (U+2028), PS (U+2029)</p>
+</blockquote>
+</li>
+<li>Escape.sqlLikeClause(String)<blockquote>
+<p>SQL LIKE characters: _ (U+005F), % (U+0025), @ (U+0040)</p>
+</blockquote>
+</li>
+<li>Escape.sqlLikeClause(String, char)<blockquote>
+<p>和上面的<code>sqlLikeClause</code>一样，只是可以允许指定特定字符不需要转义</p>
+</blockquote>
+</li>
+<li>Escape.uriParam(String)<blockquote>
+<p>URI characters: ‘ (U+0022), “ (U+0027), \ (U+005C), / (U+002F), &lt; (U+003C), &gt; (U+003E), &amp; (U+0026), &lt; (U+003C), &gt; (U+003E), ! (U+0021), # (U+0023), $ (U+0024), % (U+0025), ( (U+0028), ) (U+0029), * (U+002A), + (U+002B), , (U+002C), . (U+002E), : (U+003A), ; (U+003B), = (U+003D), ? (U+003F), @ (U+0040), [ (U+005B), ] (U+005D)<br>Control characters: \t (U+0009), \n (U+000A), \f (U+000C), \r (U+000D), SPACE (U+0020)</p>
+</blockquote>
+</li>
+<li>Escape.uri(String)<blockquote>
+<p>目前实现和上面<code>uriParam</code>完全一样</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h3><p>Filter是单一转义不能满足的，对有些地方的输入是要求有特定的数据格式的，如果不符合，则转换为更安全的数据格式：</p>
+<ul>
+<li>Filter.asCssColor(String)<blockquote>
+<p>输入为颜色定义（暂时不支持rgb方式），如果输入的不是css颜色格式，则返回<code>invalid</code></p>
+</blockquote>
+</li>
+<li>Filter.asCssColor(String, String)<blockquote>
+<p>同上，第二个参数为默认值，即，如果输入不是可识别的颜色格式，则返回默认值</p>
+</blockquote>
+</li>
+<li>Filter.asNumber(String)<blockquote>
+<p>只接受八进制、十进制、十六进制的数字型内容，如不是，则返回0</p>
+</blockquote>
+</li>
+<li>Filter.asNumber(String, String)<blockquote>
+<p>同上<code>asNumber</code>，如果不能，则返回默认值（第二个参数）</p>
+</blockquote>
+</li>
+<li>Filter.asURL(String)<blockquote>
+<p>对URL进行判断，如果schema为<code>http|https|ftp|mailto</code>则返回，否则返回相对路径（在input前面添加<code>./</code>）</p>
+</blockquote>
+</li>
+<li>Filter.asFlexibleURL(String)<blockquote>
+<p>对URL进行判断，如果schema不为<code>javascript|vbscript|data|about</code>，则返回输入，否则返回相对路径（在input前面添加<code>./</code>）</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="u5982_u4F55_u4F7F_u7528"><a href="#u5982_u4F55_u4F7F_u7528" class="headerlink" title="如何使用"></a>如何使用</h2><p>使用时，根据出现的位置不同，使用不同的方法。唯一的区别是java代码和jsp代码中有些区别。</p>
+<p>在jsp中，需要使用对应的jsp EL，如下：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;%@ taglib uri="http://coverity.com/security" prefix="cov" %&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type="text/javascript"&gt;</span><br><span class="line">    var x = '$&#123;cov:jsStringEscape(param.tainted)&#125;';</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;div onclick="alert('$&#123;cov:htmlEscape(cov:jsStringEscape(param.tainted))&#125;')"&gt;</span><br><span class="line">    $&#123;cov:htmlEscape(param.tainted)&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>java代码中，按下面方式使用：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> com.coverity.security.Escape;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">"&lt;div onclick='alert(\""</span> </span><br><span class="line">       + Escape.html(Escape.jsString(request.getParameter(<span class="string">"tainted"</span>)))</span><br><span class="line">       + <span class="string">"\")'&gt;"</span> </span><br><span class="line">       + Escape.html(request.getParameter(<span class="string">"tainted"</span>)) </span><br><span class="line">       + <span class="string">"&lt;/div&gt;"</span>;</span><br></pre></td></tr></table></figure>
+<p>使用时，需根据要转义代码出现的位置来使用，如果同时满足多个条件，则需要使用符合形式，如在a标签里href里出现的javascript代码，它满足：</p>
+<ol>
+<li>在html属性里</li>
+<li>在url的位置上</li>
+<li>是javascript代码的一部分</li>
+</ol>
+<p>这种情况则需要按照下面的方式才能输入更安全的代码：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;a href=<span class="string">"javascript:hello('$&#123;cov:htmlEscape(cov:uriEncode(cov:jsStringEscape(content)))&#125;')"</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="u53C2_u8003"><a href="#u53C2_u8003" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/coverity/coverity-security-library" target="_blank" rel="external">https://github.com/coverity/coverity-security-library</a></li>
+<li><a href="http://security.coverity.com/document/2013/Mar/fixing-xss-a-practical-guide-for-developers.html" target="_blank" rel="external">http://security.coverity.com/document/2013/Mar/fixing-xss-a-practical-guide-for-developers.html</a></li>
+<li><a href="http://coverity.github.io/coverity-security-library/" target="_blank" rel="external">http://coverity.github.io/coverity-security-library/</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>跨站点攻击（XSS）是一个WEB应用经常面对的问题，一个安全性不好的网站，很容易就被一些低级的hacker通过xss来攻击。</p>
+</blockquote>
+<p>在.NET里，微软有官方出品一个<a href="https://goo.gl/]]>
+    </summary>
+    
+      <category term="java" scheme="https://junhuih.com/tags/java/"/>
+    
+      <category term="xss" scheme="https://junhuih.com/tags/xss/"/>
+    
+      <category term="java" scheme="https://junhuih.com/categories/java/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[use redis as mybatis cache storage]]></title>
-    <link href="http://blog.junhuih.com/2016/01/06/use-redis-as-mybatis-cache-storage/"/>
-    <id>http://blog.junhuih.com/2016/01/06/use-redis-as-mybatis-cache-storage/</id>
+    <link href="https://junhuih.com/2016/01/06/use-redis-as-mybatis-cache-storage/"/>
+    <id>https://junhuih.com/2016/01/06/use-redis-as-mybatis-cache-storage/</id>
     <published>2016-01-07T00:02:48.000Z</published>
     <updated>2016-01-07T07:32:16.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -58,20 +171,20 @@
 <p>mybatis的缓存分为以及缓存和二级缓存，默认情况下，一级缓存是进城内的，和sqlsession进行绑定的，sqlsessoin关闭，缓存也就失效了，二级缓存是可以扩展使用第三方的缓存机制，如ehcache，memcache和redis。</p>]]>
     </summary>
     
-      <category term="java" scheme="http://blog.junhuih.com/tags/java/"/>
+      <category term="java" scheme="https://junhuih.com/tags/java/"/>
     
-      <category term="mybatis" scheme="http://blog.junhuih.com/tags/mybatis/"/>
+      <category term="mybatis" scheme="https://junhuih.com/tags/mybatis/"/>
     
-      <category term="redis" scheme="http://blog.junhuih.com/tags/redis/"/>
+      <category term="redis" scheme="https://junhuih.com/tags/redis/"/>
     
-      <category term="java" scheme="http://blog.junhuih.com/categories/java/"/>
+      <category term="java" scheme="https://junhuih.com/categories/java/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[custom keygenerator in ehcache with spring]]></title>
-    <link href="http://blog.junhuih.com/2016/01/05/custom-keygenerator-in-ehcache-with-spring/"/>
-    <id>http://blog.junhuih.com/2016/01/05/custom-keygenerator-in-ehcache-with-spring/</id>
+    <link href="https://junhuih.com/2016/01/05/custom-keygenerator-in-ehcache-with-spring/"/>
+    <id>https://junhuih.com/2016/01/05/custom-keygenerator-in-ehcache-with-spring/</id>
     <published>2016-01-05T21:44:55.000Z</published>
     <updated>2016-01-05T21:46:23.000Z</updated>
     <content type="html"><![CDATA[<h2 id="u80CC_u666F"><a href="#u80CC_u666F" class="headerlink" title="背景"></a>背景</h2><p>使用ehcache实现<code>@Cacheable</code>时，默认的缓存键(key)是采用对应方法的参数值的组合，这样，如果程序广泛使用ehcache做缓存很容易造成key的冲突，导致缓存信息错乱。</p>
@@ -105,20 +218,20 @@
     <![CDATA[<h2 id="u80CC_u666F"><a href="#u80CC_u666F" class="headerlink" title="背景"></a>背景</h2><p>使用ehcache实现<code>@Cacheable</code>时，默认的缓存键(key)是采用对应]]>
     </summary>
     
-      <category term="ehcache" scheme="http://blog.junhuih.com/tags/ehcache/"/>
+      <category term="ehcache" scheme="https://junhuih.com/tags/ehcache/"/>
     
-      <category term="java" scheme="http://blog.junhuih.com/tags/java/"/>
+      <category term="java" scheme="https://junhuih.com/tags/java/"/>
     
-      <category term="spring" scheme="http://blog.junhuih.com/tags/spring/"/>
+      <category term="spring" scheme="https://junhuih.com/tags/spring/"/>
     
-      <category term="java" scheme="http://blog.junhuih.com/categories/java/"/>
+      <category term="java" scheme="https://junhuih.com/categories/java/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Spring @Cacheable annotation with google guava and ehcache]]></title>
-    <link href="http://blog.junhuih.com/2016/01/04/Spring-Cacheable-annotation-with-google-guava-and-ehcache/"/>
-    <id>http://blog.junhuih.com/2016/01/04/Spring-Cacheable-annotation-with-google-guava-and-ehcache/</id>
+    <link href="https://junhuih.com/2016/01/04/Spring-Cacheable-annotation-with-google-guava-and-ehcache/"/>
+    <id>https://junhuih.com/2016/01/04/Spring-Cacheable-annotation-with-google-guava-and-ehcache/</id>
     <published>2016-01-04T23:51:30.000Z</published>
     <updated>2016-01-05T07:12:29.000Z</updated>
     <content type="html"><![CDATA[<p>Java Spring中引入了对Cache的支持，并通过@Cacheable来完成对某个方法的执行进行缓存。<br>其核心思想是：在调用缓存方法时，把方法的输入参数作为缓存的key，把方法的输出结构作为缓存的value。</p>
@@ -162,24 +275,24 @@
 ]]>
     </summary>
     
-      <category term="cache" scheme="http://blog.junhuih.com/tags/cache/"/>
+      <category term="cache" scheme="https://junhuih.com/tags/cache/"/>
     
-      <category term="ehcache" scheme="http://blog.junhuih.com/tags/ehcache/"/>
+      <category term="ehcache" scheme="https://junhuih.com/tags/ehcache/"/>
     
-      <category term="guava" scheme="http://blog.junhuih.com/tags/guava/"/>
+      <category term="guava" scheme="https://junhuih.com/tags/guava/"/>
     
-      <category term="java" scheme="http://blog.junhuih.com/tags/java/"/>
+      <category term="java" scheme="https://junhuih.com/tags/java/"/>
     
-      <category term="spring" scheme="http://blog.junhuih.com/tags/spring/"/>
+      <category term="spring" scheme="https://junhuih.com/tags/spring/"/>
     
-      <category term="java" scheme="http://blog.junhuih.com/categories/java/"/>
+      <category term="java" scheme="https://junhuih.com/categories/java/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[use spring resttemplate and apache httpclient]]></title>
-    <link href="http://blog.junhuih.com/2016/01/04/use-spring-resttemplate-and-apache-httpclient/"/>
-    <id>http://blog.junhuih.com/2016/01/04/use-spring-resttemplate-and-apache-httpclient/</id>
+    <link href="https://junhuih.com/2016/01/04/use-spring-resttemplate-and-apache-httpclient/"/>
+    <id>https://junhuih.com/2016/01/04/use-spring-resttemplate-and-apache-httpclient/</id>
     <published>2016-01-04T22:11:57.000Z</published>
     <updated>2016-01-05T00:13:02.000Z</updated>
     <content type="html"><![CDATA[<p>在Java Spring里提供了通过<code>RestTemplate</code>调用http 请求的方法，这里汇总了在<code>RestTemplate</code>的基础上通过<code>apache httpclient</code>控制http请求的方式。</p>
@@ -254,20 +367,20 @@
     <![CDATA[<p>在Java Spring里提供了通过<code>RestTemplate</code>调用http 请求的方法，这里汇总了在<code>RestTemplate</code>的基础上通过<code>apache httpclient</code>控制http请求的方式。</]]>
     </summary>
     
-      <category term="httpclient" scheme="http://blog.junhuih.com/tags/httpclient/"/>
+      <category term="httpclient" scheme="https://junhuih.com/tags/httpclient/"/>
     
-      <category term="java" scheme="http://blog.junhuih.com/tags/java/"/>
+      <category term="java" scheme="https://junhuih.com/tags/java/"/>
     
-      <category term="spring" scheme="http://blog.junhuih.com/tags/spring/"/>
+      <category term="spring" scheme="https://junhuih.com/tags/spring/"/>
     
-      <category term="java" scheme="http://blog.junhuih.com/categories/java/"/>
+      <category term="java" scheme="https://junhuih.com/categories/java/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Deploy hexo blog to github]]></title>
-    <link href="http://blog.junhuih.com/2015/12/31/deploy-hexo-blog-to-github/"/>
-    <id>http://blog.junhuih.com/2015/12/31/deploy-hexo-blog-to-github/</id>
+    <link href="https://junhuih.com/2015/12/31/deploy-hexo-blog-to-github/"/>
+    <id>https://junhuih.com/2015/12/31/deploy-hexo-blog-to-github/</id>
     <published>2016-01-01T07:44:52.000Z</published>
     <updated>2016-01-01T07:53:30.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -285,18 +398,18 @@
 <p>hexo配置部署到<code>github</code>时，对应的<code>_config.xml</code>配置如下：<br><figure class="highlight plain"><table><tr><td class="code]]>
     </summary>
     
-      <category term="github" scheme="http://blog.junhuih.com/tags/github/"/>
+      <category term="github" scheme="https://junhuih.com/tags/github/"/>
     
-      <category term="hexo" scheme="http://blog.junhuih.com/tags/hexo/"/>
+      <category term="hexo" scheme="https://junhuih.com/tags/hexo/"/>
     
-      <category term="web" scheme="http://blog.junhuih.com/categories/web/"/>
+      <category term="web" scheme="https://junhuih.com/categories/web/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Good bye 2015]]></title>
-    <link href="http://blog.junhuih.com/2015/12/31/good-bye-2015/"/>
-    <id>http://blog.junhuih.com/2015/12/31/good-bye-2015/</id>
+    <link href="https://junhuih.com/2015/12/31/good-bye-2015/"/>
+    <id>https://junhuih.com/2015/12/31/good-bye-2015/</id>
     <published>2016-01-01T06:47:20.000Z</published>
     <updated>2016-01-01T07:07:19.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -313,16 +426,16 @@
 <p>2015年马上就过去了，已过而立之年，过去太多时间荒废在封闭的环境和心态里。希]]>
     </summary>
     
-      <category term="others" scheme="http://blog.junhuih.com/tags/others/"/>
+      <category term="others" scheme="https://junhuih.com/tags/others/"/>
     
-      <category term="others" scheme="http://blog.junhuih.com/categories/others/"/>
+      <category term="others" scheme="https://junhuih.com/categories/others/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Varnish]]></title>
-    <link href="http://blog.junhuih.com/2015/06/16/varnish/"/>
-    <id>http://blog.junhuih.com/2015/06/16/varnish/</id>
+    <link href="https://junhuih.com/2015/06/16/varnish/"/>
+    <id>https://junhuih.com/2015/06/16/varnish/</id>
     <published>2015-06-17T04:56:29.000Z</published>
     <updated>2016-01-01T06:33:02.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><h3 id="Envrionment"><a href="#Envrionment" class="headerlink" title="Envrionment"></a>Envrionment</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ uname <span class="operator">-a</span> &amp;&amp; cat /etc/redhat-release </span><br><span class="line">Linux <span class="number">34</span>e3d501f93d <span class="number">3.16</span>.<span class="number">0</span>-<span class="number">38</span>-generic <span class="comment">#52~14.04.1-Ubuntu SMP Fri May 8 09:43:57 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux</span></span><br><span class="line">CentOS release <span class="number">6.6</span> (Final)</span><br></pre></td></tr></table></figure>
@@ -353,16 +466,16 @@
     
     </summary>
     
-      <category term="varnish" scheme="http://blog.junhuih.com/tags/varnish/"/>
+      <category term="varnish" scheme="https://junhuih.com/tags/varnish/"/>
     
-      <category term="web" scheme="http://blog.junhuih.com/categories/web/"/>
+      <category term="web" scheme="https://junhuih.com/categories/web/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Data Integration: Sqoop]]></title>
-    <link href="http://blog.junhuih.com/2015/06/12/sqoop/"/>
-    <id>http://blog.junhuih.com/2015/06/12/sqoop/</id>
+    <link href="https://junhuih.com/2015/06/12/sqoop/"/>
+    <id>https://junhuih.com/2015/06/12/sqoop/</id>
     <published>2015-06-13T04:01:22.000Z</published>
     <updated>2016-01-01T06:40:45.000Z</updated>
     <content type="html"><![CDATA[<p>Sqoop is an open source tool (originally written at Cloudera) designed to transfer data between Hadoop and RDBMS.</p>
@@ -415,20 +528,20 @@ See &apos;sqoop help COMMAND&apos; for information on a specific command.
     
     </summary>
     
-      <category term="bigdata" scheme="http://blog.junhuih.com/tags/bigdata/"/>
+      <category term="bigdata" scheme="https://junhuih.com/tags/bigdata/"/>
     
-      <category term="hadoop" scheme="http://blog.junhuih.com/tags/hadoop/"/>
+      <category term="hadoop" scheme="https://junhuih.com/tags/hadoop/"/>
     
-      <category term="sqoop" scheme="http://blog.junhuih.com/tags/sqoop/"/>
+      <category term="sqoop" scheme="https://junhuih.com/tags/sqoop/"/>
     
-      <category term="bigdata" scheme="http://blog.junhuih.com/categories/bigdata/"/>
+      <category term="bigdata" scheme="https://junhuih.com/categories/bigdata/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Apache Spark Streaming]]></title>
-    <link href="http://blog.junhuih.com/2015/06/11/spark-streaming/"/>
-    <id>http://blog.junhuih.com/2015/06/11/spark-streaming/</id>
+    <link href="https://junhuih.com/2015/06/11/spark-streaming/"/>
+    <id>https://junhuih.com/2015/06/11/spark-streaming/</id>
     <published>2015-06-12T04:36:42.000Z</published>
     <updated>2016-01-01T06:34:13.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><ul>
@@ -488,18 +601,18 @@ See &apos;sqoop help COMMAND&apos; for information on a specific command.
     
     </summary>
     
-      <category term="bigdata" scheme="http://blog.junhuih.com/tags/bigdata/"/>
+      <category term="bigdata" scheme="https://junhuih.com/tags/bigdata/"/>
     
-      <category term="spark" scheme="http://blog.junhuih.com/tags/spark/"/>
+      <category term="spark" scheme="https://junhuih.com/tags/spark/"/>
     
-      <category term="bigdata" scheme="http://blog.junhuih.com/categories/bigdata/"/>
+      <category term="bigdata" scheme="https://junhuih.com/categories/bigdata/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Apache Spark Overview]]></title>
-    <link href="http://blog.junhuih.com/2015/06/11/spark-overview/"/>
-    <id>http://blog.junhuih.com/2015/06/11/spark-overview/</id>
+    <link href="https://junhuih.com/2015/06/11/spark-overview/"/>
+    <id>https://junhuih.com/2015/06/11/spark-overview/</id>
     <published>2015-06-12T03:56:31.000Z</published>
     <updated>2016-01-01T06:34:47.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Spark_Stack"><a href="#Spark_Stack" class="headerlink" title="Spark Stack"></a>Spark Stack</h2><p>Spark was created to complement, not replace, Hadoop</p>
@@ -600,18 +713,18 @@ See &apos;sqoop help COMMAND&apos; for information on a specific command.
     
     </summary>
     
-      <category term="bigdata" scheme="http://blog.junhuih.com/tags/bigdata/"/>
+      <category term="bigdata" scheme="https://junhuih.com/tags/bigdata/"/>
     
-      <category term="spark" scheme="http://blog.junhuih.com/tags/spark/"/>
+      <category term="spark" scheme="https://junhuih.com/tags/spark/"/>
     
-      <category term="bigdata" scheme="http://blog.junhuih.com/categories/bigdata/"/>
+      <category term="bigdata" scheme="https://junhuih.com/categories/bigdata/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Apache Spark hdfs]]></title>
-    <link href="http://blog.junhuih.com/2015/06/11/spark-hdfs/"/>
-    <id>http://blog.junhuih.com/2015/06/11/spark-hdfs/</id>
+    <link href="https://junhuih.com/2015/06/11/spark-hdfs/"/>
+    <id>https://junhuih.com/2015/06/11/spark-hdfs/</id>
     <published>2015-06-12T03:36:29.000Z</published>
     <updated>2016-01-01T06:35:21.000Z</updated>
     <content type="html"><![CDATA[<p>Spark Python Shell: pyspark</p>
@@ -825,18 +938,18 @@ if __name__ == &quot;__main__&quot;:
     
     </summary>
     
-      <category term="bigdata" scheme="http://blog.junhuih.com/tags/bigdata/"/>
+      <category term="bigdata" scheme="https://junhuih.com/tags/bigdata/"/>
     
-      <category term="spark" scheme="http://blog.junhuih.com/tags/spark/"/>
+      <category term="spark" scheme="https://junhuih.com/tags/spark/"/>
     
-      <category term="bigdata" scheme="http://blog.junhuih.com/categories/bigdata/"/>
+      <category term="bigdata" scheme="https://junhuih.com/categories/bigdata/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Useful linux command]]></title>
-    <link href="http://blog.junhuih.com/2015/04/29/linux-command/"/>
-    <id>http://blog.junhuih.com/2015/04/29/linux-command/</id>
+    <link href="https://junhuih.com/2015/04/29/linux-command/"/>
+    <id>https://junhuih.com/2015/04/29/linux-command/</id>
     <published>2015-04-29T14:56:29.000Z</published>
     <updated>2016-01-01T06:35:49.000Z</updated>
     <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># copy type=file and change-time in last 2 days, default unit is day, can be (s m h d w)</span></span><br><span class="line"><span class="comment"># copy out to folder `../new` with folder structure</span></span><br><span class="line"><span class="comment"># http://note.tc.edu.tw/548.html</span></span><br><span class="line">find -ctime -<span class="number">2</span> -type f -exec cp --parents <span class="string">'&#123;&#125;'</span> ../new \;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># zip directory</span></span><br><span class="line">tar -zcvf archive.tar.gz directory/ </span><br><span class="line"><span class="comment"># unzip directory</span></span><br><span class="line">tar -zxvf archive.tar.gz </span><br><span class="line"></span><br><span class="line"><span class="comment"># search `console` in folder</span></span><br><span class="line">find -type f | xargs grep <span class="string">"console"</span></span><br></pre></td></tr></table></figure>]]></content>
@@ -845,9 +958,9 @@ if __name__ == &quot;__main__&quot;:
     
     </summary>
     
-      <category term="linux" scheme="http://blog.junhuih.com/tags/linux/"/>
+      <category term="linux" scheme="https://junhuih.com/tags/linux/"/>
     
-      <category term="linux" scheme="http://blog.junhuih.com/categories/linux/"/>
+      <category term="linux" scheme="https://junhuih.com/categories/linux/"/>
     
   </entry>
   

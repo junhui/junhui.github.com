@@ -2,67 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.junhuih.com/2016/01/06/use-redis-as-mybatis-cache-storage/</loc>
+    <loc>https://junhuih.com/2016/01/08/anti-xss-in-java-use-coverity-security-library/</loc>
+    <lastmod>2016-01-09T06:34:20.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://junhuih.com/2016/01/06/use-redis-as-mybatis-cache-storage/</loc>
     <lastmod>2016-01-07T07:32:16.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2016/01/05/custom-keygenerator-in-ehcache-with-spring/</loc>
+    <loc>https://junhuih.com/2016/01/05/custom-keygenerator-in-ehcache-with-spring/</loc>
     <lastmod>2016-01-05T21:46:23.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2016/01/04/Spring-Cacheable-annotation-with-google-guava-and-ehcache/</loc>
+    <loc>https://junhuih.com/2016/01/04/Spring-Cacheable-annotation-with-google-guava-and-ehcache/</loc>
     <lastmod>2016-01-05T07:12:29.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2016/01/04/use-spring-resttemplate-and-apache-httpclient/</loc>
+    <loc>https://junhuih.com/2016/01/04/use-spring-resttemplate-and-apache-httpclient/</loc>
     <lastmod>2016-01-05T00:13:02.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2015/12/31/deploy-hexo-blog-to-github/</loc>
+    <loc>https://junhuih.com/2015/12/31/deploy-hexo-blog-to-github/</loc>
     <lastmod>2016-01-01T07:53:30.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2015/12/31/good-bye-2015/</loc>
+    <loc>https://junhuih.com/2015/12/31/good-bye-2015/</loc>
     <lastmod>2016-01-01T07:07:19.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2015/06/12/sqoop/</loc>
+    <loc>https://junhuih.com/2015/06/12/sqoop/</loc>
     <lastmod>2016-01-01T06:40:45.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2015/04/29/linux-command/</loc>
+    <loc>https://junhuih.com/2015/04/29/linux-command/</loc>
     <lastmod>2016-01-01T06:35:49.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2015/06/11/spark-hdfs/</loc>
+    <loc>https://junhuih.com/2015/06/11/spark-hdfs/</loc>
     <lastmod>2016-01-01T06:35:21.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2015/06/11/spark-overview/</loc>
+    <loc>https://junhuih.com/2015/06/11/spark-overview/</loc>
     <lastmod>2016-01-01T06:34:47.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2015/06/11/spark-streaming/</loc>
+    <loc>https://junhuih.com/2015/06/11/spark-streaming/</loc>
     <lastmod>2016-01-01T06:34:13.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/2015/06/16/varnish/</loc>
+    <loc>https://junhuih.com/2015/06/16/varnish/</loc>
     <lastmod>2016-01-01T06:33:02.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.junhuih.com/404.html</loc>
+    <loc>https://junhuih.com/404.html</loc>
     <lastmod>2015-12-31T19:45:58.000Z</lastmod>
   </url>
   
