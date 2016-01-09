@@ -45,7 +45,7 @@ a:focus {
   clear: both; }
 
 #header {
-  padding: 58px 0 0;
+  padding: 5px 0 0;
   text-align: left;
   border-bottom: 1px solid #ddd;
   position: relative; }
@@ -328,23 +328,28 @@ a:focus {
 blockquote, .stressed {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin: 2.5em 0;
-  padding: 0 0 0 50px;
+  margin: 5px 0 15px;
+  /*padding: 0 0 0 50px;*/
+  padding: 15px 20px 5px;
+  border-left: 4px solid #ddd;
+  background-color: #fafafa;
   color: #555;
-  border-left: none; }
+  /*border-left: none;*/ }
 
-blockquote:before, .stressed-quote:before {
-  content: "\201C";
-  display: block;
-  font-family: times;
-  font-style: normal;
-  font-size: 48px;
-  color: #444;
-  font-weight: bold;
-  line-height: 30px;
-  margin-left: -50px;
-  position: absolute; }
-
+/*
+blockquote:before,.stressed-quote:before {
+    content: "\201C";
+    display: block;
+    font-family: times;
+    font-style: normal;
+    font-size: 48px;
+    color: #444;
+    font-weight: bold;
+    line-height: 30px;
+    margin-left: -50px;
+    position: absolute;
+}
+*/
 strong, b, em {
   font-weight: bold; }
 
