@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://junhuih.com/2013/06/12/downloading-file-in-asp-net/</loc>
+    <lastmod>2016-01-13T04:39:14.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://junhuih.com/2016/01/08/anti-xss-in-java-use-coverity-security-library/</loc>
     <lastmod>2016-01-09T06:38:28.000Z</lastmod>
   </url>
