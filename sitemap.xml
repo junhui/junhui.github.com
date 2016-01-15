@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://junhuih.com/2015/12/31/good-bye-2015/</loc>
+    <lastmod>2016-01-15T05:44:37.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://junhuih.com/2013/06/12/downloading-file-in-asp-net/</loc>
     <lastmod>2016-01-13T04:39:14.000Z</lastmod>
   </url>
@@ -34,11 +39,6 @@
   <url>
     <loc>https://junhuih.com/2015/12/31/deploy-hexo-blog-to-github/</loc>
     <lastmod>2016-01-01T07:53:30.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://junhuih.com/2015/12/31/good-bye-2015/</loc>
-    <lastmod>2016-01-01T07:07:19.000Z</lastmod>
   </url>
   
   <url>
