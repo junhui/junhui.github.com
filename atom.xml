@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Web, Solution]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="https://junhuih.com/"/>
-  <updated>2016-01-09T06:38:28.000Z</updated>
+  <updated>2016-01-15T07:17:13.000Z</updated>
   <id>https://junhuih.com/</id>
   
   <author>
@@ -13,6 +13,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[用node.js调用magento api]]></title>
+    <link href="https://junhuih.com/2016/01/14/use-node-js-to-call-magento-api/"/>
+    <id>https://junhuih.com/2016/01/14/use-node-js-to-call-magento-api/</id>
+    <published>2016-01-15T06:55:35.000Z</published>
+    <updated>2016-01-15T07:17:13.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="magento__u540E_u53F0_u8BBE_u5B9A"><a href="#magento__u540E_u53F0_u8BBE_u5B9A" class="headerlink" title="magento 后台设定"></a>magento 后台设定</h2><p>在magento后台管理里，通过<code>System-&gt;Web Services-&gt;SOAP/XML-RPC Roles</code>设定你需要的权限和账户信息，如下：</p>
+<p><img src="/images/magento-api-use-nodejs.gif" alt="Magento admin SOAP/XML-RPC Roles"></p>
+<h2 id="u8C03_u7528_u65B9_u5F0F"><a href="#u8C03_u7528_u65B9_u5F0F" class="headerlink" title="调用方式"></a>调用方式</h2><p>magento对应的node.js包为：<a href="https://github.com/MadisonReed/magentoapi" target="_blank" rel="external">https://github.com/MadisonReed/magentoapi</a></p>
+<h3 id="u5F15_u7528_u548C_u73AF_u5883_u8BBE_u5B9A"><a href="#u5F15_u7528_u548C_u73AF_u5883_u8BBE_u5B9A" class="headerlink" title="引用和环境设定"></a>引用和环境设定</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MagentoAPI = <span class="built_in">require</span>(<span class="string">'magento'</span>);</span><br><span class="line"><span class="keyword">var</span> magento = <span class="keyword">new</span> MagentoAPI(&#123;</span><br><span class="line">    host: <span class="string">'www.mysite.com'</span>,</span><br><span class="line">    port: <span class="number">80</span>,</span><br><span class="line">    path: <span class="string">'/index.php/api/xmlrpc/'</span>,</span><br><span class="line">    login: <span class="string">'myid'</span>,</span><br><span class="line">    pass: <span class="string">'mypassword'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="u6253_u5370_u4EA7_u54C1_u4FE1_u606F"><a href="#u6253_u5370_u4EA7_u54C1_u4FE1_u606F" class="headerlink" title="打印产品信息"></a>打印产品信息</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">magento.login(<span class="function"><span class="keyword">function</span>(<span class="params">err, sessId</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="comment">// deal with error</span></span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// use magento</span></span><br><span class="line">    magento.catalogProduct.info(&#123;</span><br><span class="line">        id: <span class="string">`aa-bb-cc`</span></span><br><span class="line">    &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err, product</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(err);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(product);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="u66F4_u65B0_u5E93_u5B58"><a href="#u66F4_u65B0_u5E93_u5B58" class="headerlink" title="更新库存"></a>更新库存</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">magento.catalogInventoryStockItem.update(&#123;</span><br><span class="line">  product: <span class="string">'aa-bb-cc'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    is_in_stock:<span class="number">1</span>,</span><br><span class="line">    qty:<span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(err, data)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="u66F4_u65B0_u4EA7_u54C1_u4FE1_u606F"><a href="#u66F4_u65B0_u4EA7_u54C1_u4FE1_u606F" class="headerlink" title="更新产品信息"></a>更新产品信息</h3><p>更新时，同样可以指定不同的view</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">magento.catalogProduct.update(&#123;</span><br><span class="line">    id: id,</span><br><span class="line">    storeView: <span class="string">'2'</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        name: <span class="string">'name'</span>,</span><br><span class="line">        description: <span class="string">'description'</span>,</span><br><span class="line">        short_description: <span class="string">'short_description'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(err, data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="magento__u540E_u53F0_u8BBE_u5B9A"><a href="#magento__u540E_u53F0_u8BBE_u5B9A" class="headerlink" title="magento 后台设定"></a>magento 后台]]>
+    </summary>
+    
+      <category term="magento" scheme="https://junhuih.com/tags/magento/"/>
+    
+      <category term="node.js" scheme="https://junhuih.com/tags/node-js/"/>
+    
+      <category term="others" scheme="https://junhuih.com/categories/others/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[anti-xss in java use coverity security library]]></title>
