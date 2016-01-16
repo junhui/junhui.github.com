@@ -1,27 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
 <html>
 <head>
-	<title>csp block all mixed content test</title>
-	<meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
+    <title>csp block all mixed content test</title>
+    <meta http-equiv="Content-Security-Policy" content="block-all-mixed-content">
 </head>
+
 <body>
+    <h1>CSP block all mixed content test</h1>
 
-<h1>CSP block all mixed content test</h1>
 
-<h2>How to do this test</h2>
-<p>1. Put this page under https domain</p>
+    <h2>How to do this test</h2>
 
-<p>2. This page html head tag contains following code</p>
-<pre>
+
+    <p>1. Put this page under https domain</p>
+
+
+    <p>2. This page html head tag contains following code</p>
+
+    <pre>
 <code>
-&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;block-all-mixed-content&quot; /&gt
+&lt;meta http-equiv="Content-Security-Policy" content="block-all-mixed-content" /&gt;
 </code>
 </pre>
 
-<p>3. Add a http hosted image with code here</p>
-<pre><code>&lt;img width=&quot;50%&quot; src=&quot;http://benjaminhendy.com/wp-content/uploads/2013/06/NowYouSeeMe.jpg&quot; /&gt;</code></pre>
+    <p>3. Add a http hosted image with code here</p>
+
+    <pre>
+<code>&lt;img width="50%" src="http://benjaminhendy.com/wp-content/uploads/2013/06/NowYouSeeMe.jpg" /&gt;</code>
+</pre>
+
+    <p>There is an image in blow, but browser will block it, and in this case, <font color="red">there is no any alert on the browser gui</font></p>
+    <img width="50%" src="http://static.junhuih.com/https-test/NowYouSeeMe.jpg">
+
+    <h3>Notes:</h3>
 
 
-<img width="50%" src="http://benjaminhendy.com/wp-content/uploads/2013/06/NowYouSeeMe.jpg">
+    <ul>
+        <li>In this case, the browser https protocol seal is still green</li>
 
+
+        <li>
+            <p>Open your browser developer tools, you will see following in your console</p>
+
+            <pre>
+<code>
+Mixed Content: The page at 'https://junhuih.com/pages/https-test/csp-block-all-mixed-content-test.html' was loaded over HTTPS, 
+but requested an insecure image 'http://benjaminhendy.com/wp-content/uploads/2013/06/NowYouSeeMe.jpg'. 
+This request has been blocked; the content must be served over HTTPS.
+</code>
+</pre>
+        </li>
+    </ul>
 </body>
 </html>

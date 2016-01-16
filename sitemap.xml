@@ -2,46 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://junhuih.com/pages/https-test/csp-block-all-mixed-content-test.html</loc>
-    <lastmod>2016-01-15T23:46:11.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://junhuih.com/pages/https-test/mixed-content-optionally-blockable-test.html</loc>
-    <lastmod>2016-01-15T23:45:13.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://junhuih.com/pages/https-test/csp-block-all-mixed-content-test.html</loc>
-    <lastmod>2016-01-15T23:30:07.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://junhuih.com/pages/https-test/protocol-downgrade-referrer-test.html</loc>
-    <lastmod>2016-01-15T23:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://junhuih.com/pages/https-test/protocol-downgrade-referrer-test.html</loc>
-    <lastmod>2016-01-15T23:20:04.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://junhuih.com/pages/https-test/csp-upgrade-insecure-requests-test.html</loc>
-    <lastmod>2016-01-15T23:18:58.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://junhuih.com/pages/https-test/mixed-content-blockable-test.html</loc>
-    <lastmod>2016-01-15T23:17:49.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://junhuih.com/pages/https-test/mixed-content-blockable-test.html</loc>
-    <lastmod>2016-01-15T23:17:49.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>https://junhuih.com/2016/01/14/use-node-js-to-call-magento-api/</loc>
     <lastmod>2016-01-15T07:17:13.000Z</lastmod>
   </url>
