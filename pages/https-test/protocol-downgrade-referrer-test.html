@@ -4,13 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-
-    <title>Protocol downgrade referrer regular test</title>
+    <meta name="referrer" content="always">
+    <title>Protocol downgrade referrer test</title>
 </head>
 
 <body>
-    <h1>Protocol downgrade referrer regular test</h1>
-    <p>This page is hosted on https, you can check the referrer on link to http page.</p>
+    <h1>Protocol downgrade referrer test</h1>
+    <p>This page already add the following code to make sure can pass self as page referrer when link to http page</p>
+    <pre>
+        <code>&lt;meta name=&quot;referrer&quot; content=&quot;always&quot;&gt;</code>
+    </pre>
     <p>Below link is to http and can show your click referrer:</p>
     <a href="http://static.junhuih.com/https-test/show-referrer.htm" target="_blank">Link to http page</a>
 </body>
