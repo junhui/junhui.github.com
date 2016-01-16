@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://junhuih.com/2016/01/15/turn-website-from-http-to-https/</loc>
+    <lastmod>2016-01-16T06:32:25.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://junhuih.com/2016/01/14/use-node-js-to-call-magento-api/</loc>
     <lastmod>2016-01-15T07:17:13.000Z</lastmod>
   </url>
