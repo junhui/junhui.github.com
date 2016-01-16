@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Web, Solution]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="https://junhuih.com/"/>
-  <updated>2016-01-16T06:32:25.000Z</updated>
+  <updated>2016-01-16T06:36:53.000Z</updated>
   <id>https://junhuih.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="https://junhuih.com/2016/01/15/turn-website-from-http-to-https/"/>
     <id>https://junhuih.com/2016/01/15/turn-website-from-http-to-https/</id>
     <published>2016-01-16T06:15:50.000Z</published>
-    <updated>2016-01-16T06:32:25.000Z</updated>
+    <updated>2016-01-16T06:36:53.000Z</updated>
     <content type="html"><![CDATA[<p>最近，阅读了一些非常好的关于https的博文：</p>
 <ul>
 <li><a href="https://imququ.com/post/sth-about-switch-to-https.html" target="_blank" rel="external">关于启用 HTTPS 的一些经验分享（一）</a></li>
@@ -28,7 +28,7 @@
 <li><a href="https://imququ.com/post/referrer-policy.html" target="_blank" rel="external">Referrer Policy 介绍</a></li>
 <li><a href="http://op.baidu.com/2015/04/https-s01a04/" target="_blank" rel="external">大型网站的 HTTPS 实践（四）——协议层以外的实践</a></li>
 </ul>
-<p>摘录了其中一下内容，供后面参考：</p>
+<p>摘录了其中一些内容，供后面参考：</p>
 <h2 id="u5173_u4E8EMixed_Content"><a href="#u5173_u4E8EMixed_Content" class="headerlink" title="关于Mixed Content"></a>关于Mixed Content</h2><p>现代浏览器都在（开始在）遵循<a href="http://www.w3.org/TR/mixed-content/" target="_blank" rel="external">W3C Mixed Content</a>，将 Mixed Content 分为 Optionally-blockable 和 Blockable 两类：<br>Optionally-blockable 类 Mixed Content 包含那些危险较小，即使被中间人篡改也无大碍的资源。现代浏览器默认会加载这类资源，同时会在控制台打印警告信息。这类资源包括：</p>
 <ul>
 <li>通过 <code>&lt;img&gt;</code> 标签加载的图片（包括 SVG 图片）；</li>
