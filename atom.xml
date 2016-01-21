@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Web, Solution]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="https://junhuih.com/"/>
-  <updated>2016-01-16T06:36:53.000Z</updated>
+  <updated>2016-01-16T06:59:43.000Z</updated>
   <id>https://junhuih.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="https://junhuih.com/2016/01/15/turn-website-from-http-to-https/"/>
     <id>https://junhuih.com/2016/01/15/turn-website-from-http-to-https/</id>
     <published>2016-01-16T06:15:50.000Z</published>
-    <updated>2016-01-16T06:36:53.000Z</updated>
+    <updated>2016-01-16T06:59:43.000Z</updated>
     <content type="html"><![CDATA[<p>最近，阅读了一些非常好的关于https的博文：</p>
 <ul>
 <li><a href="https://imququ.com/post/sth-about-switch-to-https.html" target="_blank" rel="external">关于启用 HTTPS 的一些经验分享（一）</a></li>
@@ -52,7 +52,7 @@
 <li><em>preload</em>，可选参数，后面再介绍它的作用。</li>
 </ul>
 <p>HSTS 这个响应头只能用于 HTTPS 响应；网站必须使用默认的 443 端口；必须使用域名，不能是 IP。而且启用 HSTS 之后，一旦网站证书错误，用户无法选择忽略。</p>
-<h3 id="HSTS_Preload_List"><a href="#HSTS_Preload_List" class="headerlink" title="HSTS Preload List"></a>HSTS Preload List</h3><h2 id="HTTPS__u8FC1_u79FB_u9047_u5230_u7684_u4E00_u4E9B_u5E38_u89C1_u95EE_u9898_u3002"><a href="#HTTPS__u8FC1_u79FB_u9047_u5230_u7684_u4E00_u4E9B_u5E38_u89C1_u95EE_u9898_u3002" class="headerlink" title="HTTPS 迁移遇到的一些常见问题。"></a>HTTPS 迁移遇到的一些常见问题。</h2><h3 id="u4F20_u9012_Referrer"><a href="#u4F20_u9012_Referrer" class="headerlink" title="传递 Referrer"></a>传递 Referrer</h3><p>我们可以把自己的网站替换为 https，但是一般的站点都有外链，要让外链都 https 目前还不太现实。很多网站需要从 referrer 中判断流量来源，因此对于搜索引擎这样的网站来说，referer 的传递还是比较重要的。如果不做任何设置，你会发现在 https 站点中点击外链并没有将 referrer 带入到 http 请求的头部中（<a href="http://tools.ietf.org/html/rfc7231#section-5.5.2）。现代的浏览器可以用" target="_blank" rel="external">http://tools.ietf.org/html/rfc7231#section-5.5.2）。现代的浏览器可以用</a> meta 标签来传递 refer。(<a href="http://w3c.github.io/webappsec/specs/referrer-policy" target="_blank" rel="external">http://w3c.github.io/webappsec/specs/referrer-policy</a>)</p>
+<h3 id="HSTS_Preload_List"><a href="#HSTS_Preload_List" class="headerlink" title="HSTS Preload List"></a>HSTS Preload List</h3><h2 id="HTTPS__u8FC1_u79FB_u9047_u5230_u7684_u4E00_u4E9B_u5E38_u89C1_u95EE_u9898_u3002"><a href="#HTTPS__u8FC1_u79FB_u9047_u5230_u7684_u4E00_u4E9B_u5E38_u89C1_u95EE_u9898_u3002" class="headerlink" title="HTTPS 迁移遇到的一些常见问题。"></a>HTTPS 迁移遇到的一些常见问题。</h2><h3 id="u4F20_u9012_Referrer"><a href="#u4F20_u9012_Referrer" class="headerlink" title="传递 Referrer"></a>传递 Referrer</h3><p>我们可以把自己的网站替换为 https，但是一般的站点都有外链，要让外链都 https 目前还不太现实。很多网站需要从 referrer 中判断流量来源，因此对于搜索引擎这样的网站来说，referer 的传递还是比较重要的。如果不做任何设置，你会发现在 https 站点中点击外链并没有将 referrer 带入到 http 请求的头部中（<a href="http://tools.ietf.org/html/rfc7231#section-5.5.2" target="_blank" rel="external">http://tools.ietf.org/html/rfc7231#section-5.5.2</a> ）。现代的浏览器可以用 meta 标签来传递 refer。(<a href="http://w3c.github.io/webappsec/specs/referrer-policy" target="_blank" rel="external">http://w3c.github.io/webappsec/specs/referrer-policy</a> )</p>
 <p><code>&lt;meta name=&quot;referrer&quot; content=&quot;always&quot;&gt;</code> 传递完整的 url</p>
 <p><code>&lt;meta name=&quot;referrer&quot; content=&quot;origin&quot;&gt;</code> 只传递站点，不包含路径和参数等。</p>
 <p>对于不支持 meta 传递 referrer 的浏览器，例如 IE8, 我们怎么办呢？</p>
@@ -547,6 +547,35 @@
       <category term="others" scheme="https://junhuih.com/tags/others/"/>
     
       <category term="others" scheme="https://junhuih.com/categories/others/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[MAC OS下怎么配置VPN]]></title>
+    <link href="https://junhuih.com/2015/12/16/use-vpn-in-mac-os/"/>
+    <id>https://junhuih.com/2015/12/16/use-vpn-in-mac-os/</id>
+    <published>2015-12-17T03:51:23.000Z</published>
+    <updated>2016-01-21T03:30:12.000Z</updated>
+    <content type="html"><![CDATA[<p>按照下面截图步骤就可以一步一步在Mac下设置VPN了， 请注意VPN的类型选择</p>
+<ol>
+<li>点击右上角的网络图标，并选择<code>Open Network Perferences...</code>选项:<br><img src="/images/mac-vpn1.png" alt=""></li>
+<li>这时弹出下面信息:<br><img src="/images/mac-vpn2.png" alt=""></li>
+<li>注意VPN Type，如果不确定，可以选择<code>L2TP</code>或<code>PPTP</code>试验一下，这两个比较常见：<br><img src="/images/mac-vpn3.png" alt=""></li>
+<li>填写服务器地址和用户名：<br><img src="/images/mac-vpn4.png" alt=""></li>
+<li>如果要记住密码，可以点击图中的<code>Authentication Settings...</code>选项，输入对应密码：<br><img src="/images/mac-vpn5.png" alt=""></li>
+<li>点击对应的选项，连接你要连接的vpn信息：<br><img src="/images/mac-vpn6.png" alt=""></li>
+<li>点击后，会提示输入对应密码，连接成功。</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>按照下面截图步骤就可以一步一步在Mac下设置VPN了， 请注意VPN的类型选择</p>
+<ol>
+<li>点击右上角的网络图标，并选择<code>Open Network Perferences...</code>选项:<br><img src="/images/mac-v]]>
+    </summary>
+    
+      <category term="linux" scheme="https://junhuih.com/tags/linux/"/>
+    
+      <category term="linux" scheme="https://junhuih.com/categories/linux/"/>
     
   </entry>
   
