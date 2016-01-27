@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://junhuih.com/2016/01/26/use-redis-bit-operation-to-do-realtime-metrics/</loc>
+    <lastmod>2016-01-26T20:19:50.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://junhuih.com/2015/12/16/use-vpn-in-mac-os/</loc>
     <lastmod>2016-01-21T03:30:12.000Z</lastmod>
   </url>

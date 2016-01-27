@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Web, Solution]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="https://junhuih.com/"/>
-  <updated>2016-01-16T06:59:43.000Z</updated>
+  <updated>2016-01-26T20:19:50.000Z</updated>
   <id>https://junhuih.com/</id>
   
   <author>
@@ -13,6 +13,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[用redis的bit来快速实现用户信息统计]]></title>
+    <link href="https://junhuih.com/2016/01/26/use-redis-bit-operation-to-do-realtime-metrics/"/>
+    <id>https://junhuih.com/2016/01/26/use-redis-bit-operation-to-do-realtime-metrics/</id>
+    <published>2016-01-27T05:47:19.000Z</published>
+    <updated>2016-01-26T20:19:50.000Z</updated>
+    <content type="html"><![CDATA[<p>看到比较早的一篇用redis bit来实现用户统计的<a href="http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/" target="_blank" rel="external">文章</a>，照着用C#实现了一下，记录一下过程。</p>
+<p>关于bit操作的解释，请参考上面文章。</p>
+<h2 id="u8BF4_u660E"><a href="#u8BF4_u660E" class="headerlink" title="说明"></a>说明</h2><p>Redis里关于bit操作有下面命令：</p>
+<ul>
+<li><em>BITCOUNT</em> key [start end], Count set bits in a string</li>
+<li><em>BITOP</em> operation destkey key [key …], Perform bitwise operations between strings</li>
+<li><em>BITPOS</em> key bit [start] [end], Find first bit set or clear in a string</li>
+<li><em>GETBIT</em> key offset, Returns the bit value at offset in the string value stored at key</li>
+<li><em>SETBIT</em> key offset value, Sets or clears the bit at offset in the string value stored at key</li>
+</ul>
+<p>这里主要依赖<code>SETBIT/BITOP/BITCOUNT</code>几个命令来操作。</p>
+<h2 id="u4EE3_u7801_u5B9E_u73B0"><a href="#u4EE3_u7801_u5B9E_u73B0" class="headerlink" title="代码实现"></a>代码实现</h2><p>直接上代码：<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">class Program&#10;&#123;&#10;    static void Main(string[] args)&#10;    &#123;&#10;        Stopwatch stopwatch = new Stopwatch();&#10;        stopwatch.Start();&#10;        var random = new Random();&#10;        LogLogin(random.Next(1000, 999999)); // fake customer number&#10;        LogLogin(random.Next(1000, 999999)); // fake customer number&#10;        LogLogin(random.Next(1000, 999999));&#10;        Console.WriteLine(&#34;we totally have &#123;0&#125; actives users today.&#34;, getTodayActiveUserCount());&#10;        stopwatch.Stop();&#10;        Console.WriteLine(&#34;Time elapsed: &#123;0&#125;&#34;, stopwatch.Elapsed);&#10;        Console.ReadKey();&#10;    &#125;&#10;&#10;    public static void LogLogin(int customerNumber)&#10;    &#123;&#10;        using (var client = new PooledRedisClientManager(&#34;192.168.1.181&#34;))&#10;        using (var redis = (RedisNativeClient)client.GetClient())&#10;        &#123;&#10;            redis.SetBit(string.Format(&#34;user-logon-activities:&#123;0:yyyy-MM-dd&#125;&#34;, DateTime.Now), customerNumber, 1);&#10;        &#125;&#10;    &#125;&#10;&#10;    public static int getTodayActiveUserCount()&#10;    &#123;&#10;        using (var client = new PooledRedisClientManager(&#34;192.168.1.181&#34;))&#10;        using (var redis = (RedisNativeClient)client.GetClient())&#10;        &#123;&#10;            return (int)redis.BitCount(string.Format(&#34;user-logon-activities:&#123;0:yyyy-MM-dd&#125;&#34;, DateTime.Now));&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里，代码使用了<code>servicestack.redis</code>类库，请通过nuget添加引用。</p>
+<p>在redis里定义了一组以格式为<code>user-logon-activities:{yyyy-MM-dd}</code>定义的key，如：<code>&#39;user-logon-activities:2016-01-26&#39;</code>， 在id为1234的customer登陆时，会执行redis命令`setbit ‘user-logon-activities:2016-01-26’ 1234 1｀来标示这个customer在2016-01-26登陆过。</p>
+<p>在统计具体2016-01-26日多少个客人登陆过，可以简单使用<code>bitcount &#39;user-logon-activities:2016-01-26&#39;</code>即可。</p>
+<p>同样，可以通过redis的bitop来进行位操作来统计来对多日的数据进行统计，如：</p>
+<ul>
+<li><p>连续两天内总的登陆用户数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bitop or &#39;user-logon-activities:2016-01:25-26&#39; &#39;user-logon-activities:2016-01-26&#39; &#39;user-logon-activities:2016-01-25&#39;&#10;bitcount &#39;user-logon-activities:2016-01:25-26&#39;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>连续两天内都登陆过的用户数:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bitop and &#39;user-logon-activities:2016-01:25-26&#39; &#39;user-logon-activities:2016-01-26&#39; &#39;user-logon-activities:2016-01-25&#39;&#10;bitcount &#39;user-logon-activities:2016-01:25-26&#39;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>PS: ServiceStack.Redis 的RedisNativeClient暂时不支持bitop操作，不过可以通过在后端通过redis command预处理数据的方式来操作。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>看到比较早的一篇用redis bit来实现用户统计的<a href="http://blog.getspool.com/2011/11/29/fast-easy-realtime-metrics-using-redis-bitmaps/" target="_blank" r]]>
+    </summary>
+    
+      <category term="dotnet" scheme="https://junhuih.com/tags/dotnet/"/>
+    
+      <category term="redis" scheme="https://junhuih.com/tags/redis/"/>
+    
+      <category term="tech" scheme="https://junhuih.com/categories/tech/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[关于网站从http转到https]]></title>
