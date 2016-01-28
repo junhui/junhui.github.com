@@ -2,8 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://junhuih.com/2016/01/27/start-to-use-redis-cluster/</loc>
+    <lastmod>2016-01-28T07:14:06.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>https://junhuih.com/2016/01/26/use-redis-bit-operation-to-do-realtime-metrics/</loc>
-    <lastmod>2016-01-26T20:19:50.000Z</lastmod>
+    <lastmod>2016-01-28T07:12:35.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://junhuih.com/2016/01/06/use-redis-as-mybatis-cache-storage/</loc>
+    <lastmod>2016-01-28T07:12:18.000Z</lastmod>
   </url>
   
   <url>
@@ -34,11 +44,6 @@
   <url>
     <loc>https://junhuih.com/2016/01/08/anti-xss-in-java-use-coverity-security-library/</loc>
     <lastmod>2016-01-09T06:38:28.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://junhuih.com/2016/01/06/use-redis-as-mybatis-cache-storage/</loc>
-    <lastmod>2016-01-07T07:32:16.000Z</lastmod>
   </url>
   
   <url>
