@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+.grid .tick {
+    stroke: lightgrey;
+    stroke-opacity: 0.7;
+    shape-rendering: crispEdges;
+}
+.grid path {
+  stroke-width: 0;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+var city = getParameterByName('name') || 'shanghai';
+
+var jchart = jchart || (function(){
+  function extend(obj, src) {
+    if(src){
+      Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
+    }
+    return obj;
+  }
+
+  return {
+    line: function(options){
+
+      options = extend({
+        width: 960, 
+        height: 560,
+        csv: 'data.csv',
+        yAxisTitle:''
+      },options);
+
+      var margin = {top: options.title?40:20, right: 80, bottom: 30, left: 50},
+          width = options.width - margin.left - margin.right,
+          height = options.height - margin.top - margin.bottom;
+
+      var parseDate = d3.time.format("%Y%m%d").parse;
+
+      var x = d3.time.scale()
+          .range([0, width]);
+
+      var y = d3.scale.linear()
+          .range([height, 0]);
+
+    var color = options.colors? d3.scale.ordinal().range(options.colors): d3.scale.category10();
+
+      var xAxis = d3.svg.axis()
+          .scale(x)
+          .orient("bottom");
+
+      var yAxis = d3.svg.axis()
+          .scale(y)
+          .orient("left");
+
+      var line = d3.svg.line()
+          .interpolate("basis")
+          .x(function(d) { return x(d[Object.keys(d)[0]]); })
+          .y(function(d) { return y(d.temperature); });
+
+      var svg = d3.select("body").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      function make_y_axis() {        
+          return d3.svg.axis()
+              .scale(y)
+              .orient("left")
+      }
+    if(options.title){
+      var title = svg.append("text")
+      .attr("x", options.width / 2)
+      .attr("y", -10)
+      .style("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("font-weight","bold")
+      .text(options.title);
+      //title.append('tspan')
+      //.text("df");
+      //title.append('tspan')
+      //.text("dfdfdf");
+    }
+      /*
+      var data = [
+      {date:"1-May-12","New York":"58.13", "San Francisco":"58.13", "Austin": "43"},
+      ];
+      */
+
+      if(!options.data){
+        d3.csv(options.csv, function(error, data) {
+          if (error) throw error;
+          render(data);
+        });
+      }
+      else{
+        render(options.data);
+      }
+
+      function render(data){
+
+          color.domain(d3.keys(data[0]).filter(function(key, idx) { return idx !== 0; }));
+
+          data.forEach(function(d) {
+              d.date = new Date (d[Object.keys(d)[0]]);
+          });
+
+          var cities = color.domain().map(function(name) {
+            return {
+              name: name,
+              values: data.map(function(d) {
+                return {date: d.date, temperature: +d[name]};
+              })
+            };
+          });
+
+          console.log(cities);
+
+          x.domain(d3.extent(data, function(d) { return d.date; }));
+
+          y.domain([
+            d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
+            d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
+          ]);
+
+          svg.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + height + ")")
+              .call(xAxis);
+
+          svg.append("g")
+              .attr("class", "y axis")
+              .call(yAxis)
+          svg.append("g")         
+            .attr("class", "grid")
+            .call(make_y_axis()
+                .tickSize(-width, 0, 0)
+                .tickFormat(""));
+
+
+          var city = svg.selectAll(".city")
+              .data(cities)
+            .enter().append("g")
+              .attr("class", "city");
+
+          city.append("path")
+              .attr("class", "line")
+              .attr("d", function(d) { return line(d.values); })
+              .style("stroke", function(d) { return color(d.name); });
+          var legend = svg.selectAll(".legend")
+                .data(color.domain().slice().reverse())
+              .enter().append("g")
+                .attr("class", "legend")
+                .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+            legend.append("rect")
+                .attr("x", width - 18)
+                .attr("width", 18)
+                .attr("height", 18)
+                .style("fill", color);
+
+            legend.append("text")
+                .attr("x", width - 24)
+                .attr("y", 9)
+                .attr("dy", ".35em")
+                .style("text-anchor", "end")
+                .text(function(d) { return d; });
+      }
+    },
+    stackedBar: function(options){
+
+      options = extend({
+        width: 960, 
+        height: 560,
+        csv: 'data.csv',
+        yAxisTitle:''
+      },options);
+
+      var margin = {top: options.title?40:20, right: 20, bottom: 30, left: 40},
+      width = options.width - margin.left - margin.right,
+      height = options.height - margin.top - margin.bottom;
+
+      var x = d3.scale.ordinal()
+          .rangeRoundBands([0, width], .1);
+
+      var y = d3.scale.linear()
+          .rangeRound([height, 0]);
+
+    var color = options.colors? d3.scale.ordinal().range(options.colors): d3.scale.category10();
+      var xAxis = d3.svg.axis()
+          .scale(x)
+          .orient("bottom");
+
+      var yAxis = d3.svg.axis()
+          .scale(y)
+          .orient("left")
+          .tickFormat(d3.format(".2s"));
+
+      var svg = d3.select("body").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    if(options.title){
+      var title = svg.append("text")
+      .attr("x", options.width / 2)
+      .attr("y", -10)
+      .style("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("font-weight","bold")
+      .text(options.title);
+      //title.append('tspan')
+      //.text("df");
+      //title.append('tspan')
+      //.text("dfdfdf");
+    }
+
+      /*
+      var data = [
+      {year:"2014",level1: 23, level2: 24, level3: 69, level4: 88, level5:454, level6:99},
+      ];
+      */
+    if(!options.data){
+      d3.csv(options.csv, function(error, data) {
+        if (error) throw error;
+        render(data);
+      });
+    }
+    else{
+      render(options.data);
+    }
+      function render(data){
+        color.domain(d3.keys(data[0]).filter(function(key, idx) { return idx !== 0; }));
+
+        data.forEach(function(d) {
+          var y0 = 0;
+          d.data = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+          d.total = d.data[d.data.length - 1].y1;
+        });
+
+        data.sort(function(a, b) { return b.total - a.total; });
+
+        x.domain(data.map(function(d) { return d[Object.keys(d)[0]]; }));
+        y.domain([0, d3.max(data, function(d) { return d.total; })]);
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+          .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".21em")
+            .style("text-anchor", "end")
+            .text(options.yAxisTitle);
+
+        var Key = svg.selectAll("." + Object.keys(data[0])[0])
+            .data(data)
+          .enter().append("g")
+            .attr("class", "g")
+            .attr("transform", function(d) { return "translate(" + x(d[Object.keys(d)[0]]) + ",0)"; });
+
+        Key.selectAll("rect")
+            .data(function(d) { return d.data; })
+          .enter().append("rect")
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.y1); })
+            .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+            .style("fill", function(d) { return color(d.name); });
+
+        var legend = svg.selectAll(".legend")
+            .data(color.domain().slice().reverse())
+          .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+        legend.append("rect")
+            .attr("x", width - 8)
+            .attr("width", 30)
+            .attr("height", 18)
+            .style("fill", color);
+
+        legend.append("text")
+            .attr("x", width +16)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function(d) { 
+              if(options.legendMapper){
+                return options.legendMapper(d);
+              }
+              return d; 
+            });
+      }
+    }
+  };
+})();
+
+
+d3.csv('data-'+ city + '.csv', function(error, data) {
+  jchart.line({data: data, title:'AQI Trends ('+city+')', colors: ['black', 'steelblue']});
+
+  var summary = {
+      year2014: {year:"2014",level1: 0, level2: 0, level3: 0, level4: 0, level5:0, level6:0},
+      year2015: {year:"2015",level1: 0, level2: 0, level3: 0, level4: 0, level5:0, level6:0},
+  };
+  var checkLevel = function(val){
+    if(val <= 50){
+      return 1;
+    }
+    if(val <= 100){
+      return 2;
+    }
+    if(val <= 150){
+      return 3;
+    }
+    if(val <= 200){
+      return 4;
+    }
+    if(val <= 300){
+      return 5;
+    }
+    return 6;
+  };
+  data.forEach(function(item){
+    var levelAt2014 = checkLevel(item.year2014);
+    var levelAt2015 = checkLevel(item.year2015);
+    summary.year2014['level' + levelAt2014] ++;
+    summary.year2015['level' + levelAt2015] ++;
+  });
+  var data2 = [summary.year2014, summary.year2015];
+  console.log(data2);
+  jchart.stackedBar({width: 220, title:'AQI ('+city+')', data: data2, 
+    yAxisTitle: 'days in year',
+    colors: ['#00e400','#ff0','#ff7e00','#f00','#99004c','#7e0023']
+    , legendMapper: function(d){
+      switch (d){
+        case 'level1':
+          return '优';
+          case 'level2':
+          return '良';
+          case 'level3':
+          return '轻度';
+          case 'level4':
+          return '中度';
+          case 'level5':
+          return '重度';
+          case 'level6':
+          return '严重';
+        default:
+          return d;
+      }
+    }});
+});
+
+
+
+//jchart.stackedBar({width: 460, title:'AQI distribution (Shanghai)'});
+
+</script>
