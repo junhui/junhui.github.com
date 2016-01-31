@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Web, Solution]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="https://junhuih.com/"/>
-  <updated>2016-01-31T17:18:57.000Z</updated>
+  <updated>2016-01-31T17:33:49.000Z</updated>
   <id>https://junhuih.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="https://junhuih.com/2016/01/31/air-quality-index-for-america/"/>
     <id>https://junhuih.com/2016/01/31/air-quality-index-for-america/</id>
     <published>2016-01-31T16:53:30.000Z</published>
-    <updated>2016-01-31T17:18:57.000Z</updated>
+    <updated>2016-01-31T17:33:49.000Z</updated>
     <content type="html"><![CDATA[<p>前面分析了<a href="/2016/01/29/use-node-js-to-crawl-and-analysis-aqi-pm2-5-data/">前两年中国主要城市的天气状况</a>，一直以来大家都说美国空气非常棒，但是自己觉得这两年洛杉矶周边空气状况似乎很糟糕，于是花了点时间，研究了一下一些官方的数据。</p>
 <h2 id="u6570_u636E_u6765_u6E90"><a href="#u6570_u636E_u6765_u6E90" class="headerlink" title="数据来源"></a>数据来源</h2><p>美国环境保护组织提供的数据，<a href="http://www3.epa.gov/airdata/ad_rep_aqi.html" target="_blank" rel="external">来源</a>。</p>
 <p>其中，数据中只包含具体每个不同等级一年中对应的天数：</p>
@@ -36,6 +36,13 @@
 <h2 id="u7ED3_u679C_u56FE_u5F62_u5316"><a href="#u7ED3_u679C_u56FE_u5F62_u5316" class="headerlink" title="结果图形化"></a>结果图形化</h2><p>和前文一样的图形，展示结果如下：<br><img src="/images/US-CA-AQI-PM25-Data.png" alt=""></p>
 <p>从数据可以看，洛杉矶周围空气质量是非常差的，(这里不对中美的数据标准做任何评测)，仅仅从不同国家认定的空气质量等级和危害程度来看，洛杉矶周围好像比上海还要差。</p>
 <p>点击<a href="/aqi-pm25-trend/us.htm">这里</a>查看上面的图形页面。</p>
+<h2 id="u53C2_u8003_u94FE_u63A5"><a href="#u53C2_u8003_u94FE_u63A5" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li>一个关于美国空气质量的网站：(airnow](<a href="http://www.airnow.gov/index.cfm?action=airnow.local_state&amp;stateid=5" target="_blank" rel="external">http://www.airnow.gov/index.cfm?action=airnow.local_state&amp;stateid=5</a>)</li>
+<li><a href="http://blogs.america.gov/mgck/2013/02/26/air-3/" target="_blank" rel="external">http://blogs.america.gov/mgck/2013/02/26/air-3/</a><blockquote>
+<p>以臭氧为代表的化学污染物在洛杉矶最为严重。根据环保署的统计，从2008到2010年三年内，洛杉矶地区臭氧污染超过警戒线的总天数为232天，其中橙色警报185天，红色41天，紫色6天，加权平均后，每年为86.2天。比2007到2009年的三年平均数每年减少了5天，比近年来最严重的2002到2004年，平均每年减少了43天，但是环保署的合格指标为每年不得超过3天，所以差距仍然十分巨大。</p>
+</blockquote>
+</li>
+</ul>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>前面分析了<a href="/2016/01/29/use-node-js-to-crawl-and-analysis-aqi-pm2-5-data/">前两年中国主要城市的天气状况</a>，一直以来大家都说美国空气非常棒，但是自己觉得这两年洛杉矶周边空气状况似乎很糟糕，于]]>
